@@ -20,14 +20,14 @@ const FlightScreen = ({ navigation }) => {
       />
        <KeyboardAvoidingView
         style={styles.keyboardAvoidingView}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Padding works for both iOS and Android
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 70 : 0} // Adjust offset for fixed header
+        behavior={Platform.OS === 'android' ? 'padding' : 'height'} // Padding works for both iOS and Android
+        keyboardVerticalOffset={Platform.OS === 'android' ? 70 : 0} // Adjust offset for fixed header
       >
       <ScrollView contentContainerStyle={styles.scrollContent}
        showsVerticalScrollIndicator={false}
        keyboardShouldPersistTaps="handled">
         <View style={styles.container}>
-          {/* Header Section */}
+          {/* Main Section */}
           <Text style={styles.headerText}>Let's</Text>
           <Text style={styles.headerText}>Explore</Text>
 
@@ -89,7 +89,7 @@ const FlightScreen = ({ navigation }) => {
           </View>
 
           {/* Search Button */}
-          <TouchableOpacity style={styles.searchButton}>
+          <TouchableOpacity style={styles.searchButton} onPress={() => navigation.navigate('FlightDetailsScreen')}>
             <Text style={styles.searchButtonText}>Search</Text>
           </TouchableOpacity>
         </View>
