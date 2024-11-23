@@ -38,14 +38,14 @@ const ServicesScreen = ({ navigation }) => {
           </TouchableOpacity>
 
           {/* Hotels */}
-          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Hotels')}>
+          <TouchableOpacity style={styles.card}>
             <ImageBackground
-              source={require('../../assets/hotel.jpg')} // Replace with your hotel image path
+              source={require('../../assets/hotel.jpg')}
               style={styles.cardImage}
               imageStyle={{ borderRadius: 15 }}
             >
               <Text style={styles.cardText}>Hotels</Text>
-              <TouchableOpacity style={styles.cardButton}  onPress={() => navigation.navigate('Hotels')}>
+              <TouchableOpacity style={styles.cardButton}  onPress={() => navigation.navigate('HotelBooking')}>
                 <Text style={styles.cardButtonText}>Book Now</Text>
               </TouchableOpacity>
             </ImageBackground>
