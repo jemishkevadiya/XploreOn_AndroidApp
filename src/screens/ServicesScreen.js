@@ -24,14 +24,14 @@ const ServicesScreen = ({ navigation }) => {
         {/* Main Services Section */}
         <View style={styles.servicesContainer}>
           {/* Flights */}
-          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Flights')}>
+          <TouchableOpacity style={styles.card}>
             <ImageBackground
               source={require('../../assets/flight.jpg')} // Replace with your flight image path
               style={styles.cardImage}
               imageStyle={{ borderRadius: 15 }}
             >
               <Text style={styles.cardText}>Flights</Text>
-              <TouchableOpacity style={styles.cardButton}>
+              <TouchableOpacity style={styles.cardButton} onPress={() => navigation.navigate('FlightBooking')}>
                 <Text style={styles.cardButtonText}>Book Now</Text>
               </TouchableOpacity>
             </ImageBackground>
@@ -45,35 +45,35 @@ const ServicesScreen = ({ navigation }) => {
               imageStyle={{ borderRadius: 15 }}
             >
               <Text style={styles.cardText}>Hotels</Text>
-              <TouchableOpacity style={styles.cardButton}>
+              <TouchableOpacity style={styles.cardButton}  onPress={() => navigation.navigate('Hotels')}>
                 <Text style={styles.cardButtonText}>Book Now</Text>
               </TouchableOpacity>
             </ImageBackground>
           </TouchableOpacity>
 
           {/* Car Rentals */}
-          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Cars')}>
+          <TouchableOpacity style={styles.card}>
             <ImageBackground
               source={require('../../assets/Car_rental.jpg')} // Replace with your car rental image path
               style={styles.cardImage}
               imageStyle={{ borderRadius: 15 }}
             >
               <Text style={styles.cardText}>Car Rentals</Text>
-              <TouchableOpacity style={styles.cardButton}>
+              <TouchableOpacity style={styles.cardButton}  onPress={() => navigation.navigate('Cars')}>
                 <Text style={styles.cardButtonText}>Book Now</Text>
               </TouchableOpacity>
             </ImageBackground>
           </TouchableOpacity>
 
           {/* Restaurants */}
-          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Restaurants')}>
+          <TouchableOpacity style={styles.card}>
             <ImageBackground
               source={require('../../assets/restaurant.jpg')} // Replace with your restaurant image path
               style={styles.cardImage}
               imageStyle={{ borderRadius: 15 }}
             >
               <Text style={styles.cardText}>Restaurants</Text>
-              <TouchableOpacity style={styles.cardButton}>
+              <TouchableOpacity style={styles.cardButton}  onPress={() => navigation.navigate('Restaurants')}>
                 <Text style={styles.cardButtonText}>Book Now</Text>
               </TouchableOpacity>
             </ImageBackground>

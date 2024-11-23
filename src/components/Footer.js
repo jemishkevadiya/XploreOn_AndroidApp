@@ -6,7 +6,7 @@ const Footer = ({ navigation }) => {
   return (
     <View style={styles.footer}>
       {/* Home Icon */}
-      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+      <TouchableOpacity onPress={() => navigation.navigate('ServicesScreen')}>
         <Ionicons name="home-outline" size={30} color="#ffffff" />
       </TouchableOpacity>
 

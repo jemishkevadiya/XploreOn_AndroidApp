@@ -19,7 +19,7 @@ const HomeScreen = ({ navigation }) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate('ServicesScreen'); // Replace 'NextScreen' with your target screen name
+            navigation.navigate('SignIn'); // Replace 'NextScreen' with your target screen name
           }}
         >
           <Text style={styles.buttonText}>Get Started</Text>
