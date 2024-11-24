@@ -78,11 +78,13 @@ const FlightDetailsScreen = ({ navigation }) => {
             price: '$620',
             tripType: 'Round Trip',
         },
-      
     ];
 
     const renderFlightCard = ({ item }) => (
-        <View style={styles.card}>
+        <TouchableOpacity
+            style={styles.card}
+            onPress={() => navigation.navigate('PaymentScreen', { flightDetails: item })}
+        >
             <View style={styles.cardHeader}>
                 <Text style={styles.airlineName}>{item.airline}</Text>
             </View>
@@ -101,56 +103,56 @@ const FlightDetailsScreen = ({ navigation }) => {
             <View style={styles.cardFooter}>
                 <Text style={styles.priceText}>Price: {item.price}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 
     return (
         <ImageBackground
-      source={require('../../assets/flight-bg.jpg')} 
-      style={styles.background}
-    >
-        <LinearGradient
-        colors={['rgba(0,0,0,0.7)', 'transparent']}
-        style={styles.gradientOverlay}
-      />
-        <View style={styles.container}>
-            {/* Header */}
-            <View style={styles.backArrow}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Ionicons name="arrow-back" size={30} color="#fff" />
-                </TouchableOpacity>
-            </View>
-            <ScrollView contentContainerStyle={styles.scrollContent}>
-            <View style={styles.topSpace} />
-                <View style={styles.routeContainer}> 
-                    {/* Route Info */}
-                    <View style={styles.routeInfo}>
-                        <View style={styles.routeDetails}>
-                            <Text style={styles.routeCode}>{"NYC"}</Text>
-                            <Text style={styles.cityText}>{"New York"}</Text>
-                        </View>
-                        <View style={styles.routeArrow}>
-                            <Ionicons name="airplane" size={24} color="#ff6f00" />
-                        </View>
-                        <View style={styles.routeDetails}>
-                            <Text style={styles.routeCode}>{"SFO"}</Text>
-                            <Text style={styles.cityText}>{"San Francisco"}</Text>
+            source={require('../../assets/flight-bg.jpg')} 
+            style={styles.background}
+        >
+            <LinearGradient
+                colors={['rgba(0,0,0,0.7)', 'transparent']}
+                style={styles.gradientOverlay}
+            />
+            <View style={styles.container}>
+                {/* Header */}
+                <View style={styles.backArrow}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Ionicons name="arrow-back" size={30} color="#fff" />
+                    </TouchableOpacity>
+                </View>
+                <ScrollView contentContainerStyle={styles.scrollContent}>
+                    <View style={styles.topSpace} />
+                    <View style={styles.routeContainer}> 
+                        {/* Route Info */}
+                        <View style={styles.routeInfo}>
+                            <View style={styles.routeDetails}>
+                                <Text style={styles.routeCode}>{"NYC"}</Text>
+                                <Text style={styles.cityText}>{"New York"}</Text>
+                            </View>
+                            <View style={styles.routeArrow}>
+                                <Ionicons name="airplane" size={24} color="#ff6f00" />
+                            </View>
+                            <View style={styles.routeDetails}>
+                                <Text style={styles.routeCode}>{"SFO"}</Text>
+                                <Text style={styles.cityText}>{"San Francisco"}</Text>
+                            </View>
                         </View>
                     </View>
-                </View>
-                <View>
-                    {/* Flight Cards */}
-                    <FlatList
-                        data={flightData}
-                        renderItem={renderFlightCard}
-                        keyExtractor={(item) => item.id}
-                        contentContainerStyle={styles.cardList}
-                    />
-                </View>
-            </ScrollView>
-            <Footer navigation={navigation} />
-        </View>
-            </ImageBackground>  
+                    <View>
+                        {/* Flight Cards */}
+                        <FlatList
+                            data={flightData}
+                            renderItem={renderFlightCard}
+                            keyExtractor={(item) => item.id}
+                            contentContainerStyle={styles.cardList}
+                        />
+                    </View>
+                </ScrollView>
+                <Footer navigation={navigation} />
+            </View>
+        </ImageBackground>  
     );
 };
 
