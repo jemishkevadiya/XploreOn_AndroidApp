@@ -11,17 +11,17 @@ const FlightScreen = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require('../../assets/flight-bg.jpg')} // Replace with your background image path
+      source={require('../../assets/flight-bg.jpg')}
       style={styles.background}
     >
       <LinearGradient
-        colors={['rgba(0,0,0,0.7)', 'transparent']} // Gradient overlay
+        colors={['rgba(0,0,0,0.7)', 'transparent']} 
         style={styles.gradientOverlay}
       />
        <KeyboardAvoidingView
         style={styles.keyboardAvoidingView}
-        behavior={Platform.OS === 'android' ? 'padding' : 'height'} // Padding works for both iOS and Android
-        keyboardVerticalOffset={Platform.OS === 'android' ? 70 : 0} // Adjust offset for fixed header
+        behavior={Platform.OS === 'android' ? 'padding' : 'height'} 
+        keyboardVerticalOffset={Platform.OS === 'android' ? 70 : 0} 
       >
       <ScrollView contentContainerStyle={styles.scrollContent}
        showsVerticalScrollIndicator={false}

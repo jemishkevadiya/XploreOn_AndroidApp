@@ -1,13 +1,13 @@
 import React from 'react';
 import { ScrollView, View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; // For the profile icon
+import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import Footer from '../components/Footer';
 
 const ServicesScreen = ({ navigation }) => {
   return (
     <LinearGradient
-      colors={['#333333', '#fad0c4']} // Gradient colors
+      colors={['#333333', '#fad0c4']}
       style={styles.background}
     >
       <View style={styles.backArrow}>
@@ -26,7 +26,7 @@ const ServicesScreen = ({ navigation }) => {
           {/* Flights */}
           <TouchableOpacity style={styles.card}>
             <ImageBackground
-              source={require('../../assets/flight.jpg')} // Replace with your flight image path
+              source={require('../../assets/flight.jpg')} 
               style={styles.cardImage}
               imageStyle={{ borderRadius: 15 }}
             >
@@ -54,12 +54,12 @@ const ServicesScreen = ({ navigation }) => {
           {/* Car Rentals */}
           <TouchableOpacity style={styles.card}>
             <ImageBackground
-              source={require('../../assets/Car_rental.jpg')} // Replace with your car rental image path
+              source={require('../../assets/Car_rental.jpg')}
               style={styles.cardImage}
               imageStyle={{ borderRadius: 15 }}
             >
               <Text style={styles.cardText}>Car Rentals</Text>
-              <TouchableOpacity style={styles.cardButton}  onPress={() => navigation.navigate('Cars')}>
+              <TouchableOpacity style={styles.cardButton}  onPress={() => navigation.navigate('CarRentalsScreen')}>
                 <Text style={styles.cardButtonText}>Book Now</Text>
               </TouchableOpacity>
             </ImageBackground>
@@ -68,7 +68,7 @@ const ServicesScreen = ({ navigation }) => {
           {/* Restaurants */}
           <TouchableOpacity style={styles.card}>
             <ImageBackground
-              source={require('../../assets/restaurant.jpg')} // Replace with your restaurant image path
+              source={require('../../assets/restaurant.jpg')} 
               style={styles.cardImage}
               imageStyle={{ borderRadius: 15 }}
             >

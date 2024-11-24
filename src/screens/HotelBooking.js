@@ -11,17 +11,17 @@ const HotelBooking = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require('../../assets/hotel-BG.jpg')} // Replace with your background image path
+      source={require('../../assets/hotel-BG.jpg')}
       style={styles.background}
     >
       <LinearGradient
-        colors={['rgba(0,0,0,0.7)', 'transparent']} // Gradient overlay
+        colors={['rgba(0,0,0,0.7)', 'transparent']} 
         style={styles.gradientOverlay}
       />
        <KeyboardAvoidingView
         style={styles.keyboardAvoidingView}
-        behavior={Platform.OS === 'android' ? 'padding' : 'height'} // Padding works for both iOS and Android
-        keyboardVerticalOffset={Platform.OS === 'android' ? 70 : 0} // Adjust offset for fixed header
+        behavior={Platform.OS === 'android' ? 'padding' : 'height'} 
+        keyboardVerticalOffset={Platform.OS === 'android' ? 70 : 0} 
       >
       <ScrollView contentContainerStyle={styles.scrollContent}
        showsVerticalScrollIndicator={false}
@@ -34,7 +34,7 @@ const HotelBooking = ({ navigation }) => {
           {/* Input Fields */}
           <View style={styles.inputGroup}>
             <View style={styles.inputRow}>
-              <Ionicons name="airplane-outline" size={20} color="#fff" />
+              <Ionicons name="location-outline" size={20} color="#fff" />
               <TextInput style={styles.input} placeholder="Location" placeholderTextColor="#ccc" />
             </View>
             <View style={styles.inputRow}>

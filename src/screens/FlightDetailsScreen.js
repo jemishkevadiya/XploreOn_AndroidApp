@@ -106,11 +106,11 @@ const FlightDetailsScreen = ({ navigation }) => {
 
     return (
         <ImageBackground
-      source={require('../../assets/flight-bg.jpg')} // Replace with your background image path
+      source={require('../../assets/flight-bg.jpg')} 
       style={styles.background}
     >
         <LinearGradient
-        colors={['rgba(0,0,0,0.7)', 'transparent']} // Gradient overlay
+        colors={['rgba(0,0,0,0.7)', 'transparent']}
         style={styles.gradientOverlay}
       />
         <View style={styles.container}>

@@ -13,7 +13,7 @@ const HotelDetailsScreen = ({ navigation }) => {
             rating: '4.5',
             price: '$300/night',
             availableRooms: '5',
-            image: require('../../assets/GrandPalaceHotel.jpg'), // Replace with actual hotel image paths
+            image: require('../../assets/GrandPalaceHotel.jpg'), 
         },
         {
             id: '2',
@@ -77,11 +77,11 @@ const HotelDetailsScreen = ({ navigation }) => {
 
     return (
         <ImageBackground
-            source={require('../../assets/hotel-BG.jpg')} // Replace with your background image path
+            source={require('../../assets/hotel-BG.jpg')} 
             style={styles.background}
         >
             <LinearGradient
-                colors={['rgba(0,0,0,0.98)', 'transparent']} // Gradient overlay
+                colors={['rgba(0,0,0,0.98)', 'transparent']}
                 style={styles.gradientOverlay}
             />
             <View style={styles.container}>
@@ -103,6 +103,7 @@ const HotelDetailsScreen = ({ navigation }) => {
                             renderItem={renderHotelCard}
                             keyExtractor={(item) => item.id}
                             contentContainerStyle={styles.cardList}
+                            nestedScrollEnabled={true}
                         />
                     </View>
                 </ScrollView>
