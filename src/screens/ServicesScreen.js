@@ -73,7 +73,7 @@ const ServicesScreen = ({ navigation }) => {
               imageStyle={{ borderRadius: 15 }}
             >
               <Text style={styles.cardText}>Restaurants</Text>
-              <TouchableOpacity style={styles.cardButton}  onPress={() => navigation.navigate('Restaurants')}>
+              <TouchableOpacity style={styles.cardButton}  onPress={() => navigation.navigate('RestaurantScreen')}>
                 <Text style={styles.cardButtonText}>Book Now</Text>
               </TouchableOpacity>
             </ImageBackground>

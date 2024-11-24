@@ -13,23 +13,15 @@ import HotelBooking from '../screens/HotelBooking.js';
 import HotelDetailsScreen from '../screens/HotelDetailsScreen.js';
 import CarRentalsScreen from '../screens/CarRentalsScreen.js';
 import CarDetailsScreen from '../screens/CarDetailsScreen.js';
+import RestaurantScreen from '../screens/RestaurantScreen.js';
+import RestaurantDetailsScreen from '../screens/RestaurantDetailsScreen.js';
 
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SplashScreen"
-      screenOptions={{
-                        headerBackImage: () => (
-                            <Ionicons name="arrow-back" size={25} color="#fff" style={{ marginLeft: 10 }} />
-                        ),
-                        headerBackTitleVisible: false, // Hides the "Back" text
-                        headerStyle: {
-                            backgroundColor: '#ff6f00', // Header background color
-                        },
-                        headerTintColor: '#fff', // Color for icons and text
-                    }}>
+      <Stack.Navigator initialRouteName="SplashScreen">
         <Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }} />
         <Stack.Screen name="HomeScreen" component={HomeScreen}  options={{ headerShown: false }}/>
         <Stack.Screen name="ServicesScreen" component={ServicesScreen} options={{ headerShown: false }}/>
@@ -41,6 +33,8 @@ const AppNavigator = () => {
         <Stack.Screen name="HotelDetailsScreen" component={HotelDetailsScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="CarRentalsScreen" component={CarRentalsScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="CarDetailsScreen" component={CarDetailsScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="RestaurantDetailsScreen" component={RestaurantDetailsScreen} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
