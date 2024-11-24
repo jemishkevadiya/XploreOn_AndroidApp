@@ -1,132 +1,193 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
+import Footer from '../components/Footer';
 
-const PaymentScreen = ({ route, navigation }) => {
-    const { flightDetails } = route.params;
+const PaymentScreen = ({ navigation, route }) => {
+  const { selectedService, serviceType } = route.params; // Expecting serviceType to distinguish the service
 
-    return (
-        <LinearGradient
-            colors={['#ff6f00', '#ffa040']}
-            style={styles.gradientBackground}
-        >
-            <ScrollView contentContainerStyle={styles.container}>
-                {/* Header */}
-                <TouchableOpacity style={styles.backArrow} onPress={() => navigation.goBack()}>
-                    <Text style={styles.backText}>Back</Text>
-                </TouchableOpacity>
+  // Determine the service details based on the type
+  const renderServiceDetails = () => {
+    if (serviceType === 'flight') {
+      return (
+        <View style={styles.serviceDetailsContainer}>
+          <Text style={styles.sectionTitle}>{selectedService?.airline || 'Flight Details'}</Text>
+          <View style={styles.serviceDetails}>
+            <Text style={styles.serviceText}>Route: {selectedService?.origin} ➝ {selectedService?.destination}</Text>
+            <Text style={styles.serviceText}>Date: {selectedService?.date}</Text>
+            <Text style={styles.serviceText}>Time: {selectedService?.time}</Text>
+            <Text style={styles.serviceText}>Price: {selectedService?.price}</Text>
+          </View>
+        </View>
+      );
+    } else if (serviceType === 'hotel') {
+      return (
+        <View style={styles.serviceDetailsContainer}>
+          <Text style={styles.sectionTitle}>{selectedService?.name || 'Hotel Details'}</Text>
+          <View style={styles.serviceDetails}>
+            <Text style={styles.serviceText}>Location: {selectedService?.location || 'Unknown'}</Text>
+            <Text style={styles.serviceText}>Check-In: {selectedService?.checkInDate || 'N/A'}</Text>
+            <Text style={styles.serviceText}>Check-Out: {selectedService?.checkOutDate || 'N/A'}</Text>
+            <Text style={styles.serviceText}>Price: {selectedService?.price}</Text>
+          </View>
+        </View>
+      );
+    } else if (serviceType === 'car') {
+      return (
+        <View style={styles.serviceDetailsContainer}>
+          <Text style={styles.sectionTitle}>{selectedService?.company || 'Car Rental Details'}</Text>
+          <View style={styles.serviceDetails}>
+            <Text style={styles.serviceText}>Car Model: {selectedService?.carModel || 'Unknown'}</Text>
+            <Text style={styles.serviceText}>Pickup Date: {selectedService?.pickupDate || 'N/A'}</Text>
+            <Text style={styles.serviceText}>Return Date: {selectedService?.returnDate || 'N/A'}</Text>
+            <Text style={styles.serviceText}>Price: {selectedService?.price}</Text>
+          </View>
+        </View>
+      );
+    } else if (serviceType === 'restaurant') {
+      return (
+        <View style={styles.serviceDetailsContainer}>
+          <Text style={styles.sectionTitle}>{selectedService?.name || 'Restaurant Details'}</Text>
+          <View style={styles.serviceDetails}>
+            <Text style={styles.serviceText}>Location: {selectedService?.location || 'Unknown'}</Text>
+            <Text style={styles.serviceText}>Reservation Date: {selectedService?.date || 'N/A'}</Text>
+            <Text style={styles.serviceText}>Price: {selectedService?.price}</Text>
+          </View>
+        </View>
+      );
+    }
+    return null;
+  };
 
-                {/* Title */}
-                <Text style={styles.title}>Payment Details</Text>
+  return (
+    <LinearGradient colors={['#333333', '#fad0c4']} style={styles.gradientBackground}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        {/* Back Button */}
+        <View style={styles.backArrow}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={30} color="#fff" />
+          </TouchableOpacity>
+        </View>
 
-                {/* Flight Details */}
-                <View style={styles.flightDetailsBox}>
-                    <Text style={styles.label}>Airline: {flightDetails.airline}</Text>
-                    <Text style={styles.label}>Route: {flightDetails.origin} → {flightDetails.destination}</Text>
-                    <Text style={styles.label}>Duration: {flightDetails.duration}</Text>
-                    <Text style={styles.label}>Date: {flightDetails.date}</Text>
-                    <Text style={styles.label}>Time: {flightDetails.time}</Text>
-                    <Text style={styles.label}>Price: {flightDetails.price}</Text>
-                </View>
+        {/* Header */}
+        <Text style={styles.headerText}>Payment Details</Text>
 
-                {/* Payment Options */}
-                <View style={styles.paymentOptionsBox}>
-                    <Text style={styles.paymentTitle}>Payment Options</Text>
-                    <TouchableOpacity style={styles.paymentOption}>
-                        <Text style={styles.paymentText}>Credit/Debit Card</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.paymentOption}>
-                        <Text style={styles.paymentText}>UPI</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.paymentOption}>
-                        <Text style={styles.paymentText}>Net Banking</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.paymentOption}>
-                        <Text style={styles.paymentText}>Wallet</Text>
-                    </TouchableOpacity>
-                </View>
+        {/* Dynamic Service Details */}
+        {renderServiceDetails()}
 
-                {/* Pay Now Button */}
-                <TouchableOpacity
-                    style={styles.payButton}
-                    onPress={() => alert("Payment Successful!")}
-                >
-                    <Text style={styles.payButtonText}>Pay Now</Text>
-                </TouchableOpacity>
-            </ScrollView>
-        </LinearGradient>
-    );
+        {/* Payment Form */}
+        <View style={styles.paymentForm}>
+          <View style={styles.inputContainer}>
+            <Ionicons name="card-outline" size={20} color="#fff" />
+            <TextInput style={styles.input} placeholder="Card Number" keyboardType="numeric" placeholderTextColor="#ccc" />
+          </View>
+          <View style={styles.inputContainer}>
+            <Ionicons name="calendar-outline" size={20} color="#fff" />
+            <TextInput
+              style={styles.input}
+              placeholder="Expiry Date (MM/YY)"
+              keyboardType="numeric"
+              placeholderTextColor="#ccc"
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Ionicons name="key-outline" size={20} color="#fff" />
+            <TextInput style={styles.input} placeholder="CVV" keyboardType="numeric" secureTextEntry placeholderTextColor="#ccc" />
+          </View>
+          <View style={styles.inputContainer}>
+            <Ionicons name="person-outline" size={20} color="#fff" />
+            <TextInput style={styles.input} placeholder="Cardholder Name" placeholderTextColor="#ccc" />
+          </View>
+          <View style={styles.inputContainer}>
+            <Ionicons name="mail-outline" size={20} color="#fff" />
+            <TextInput style={styles.input} placeholder="Email" keyboardType="email-address" placeholderTextColor="#ccc" />
+          </View>
+          <TouchableOpacity style={styles.payButton}>
+            <Text style={styles.payButtonText}>Pay Now</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+
+      {/* Footer */}
+      <Footer navigation={navigation} />
+    </LinearGradient>
+  );
 };
 
 const styles = StyleSheet.create({
-    gradientBackground: {
-        flex: 1,
-    },
-    container: {
-        padding: 20,
-        paddingBottom: 50,
-    },
-    backArrow: {
-        marginTop: 20,
-        marginBottom: 20,
-    },
-    backText: {
-        fontSize: 16,
-        color: '#fff',
-    },
-    title: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#fff',
-        textAlign: 'center',
-        marginBottom: 30,
-    },
-    flightDetailsBox: {
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-        padding: 15,
-        borderRadius: 8,
-        marginBottom: 20,
-    },
-    label: {
-        fontSize: 16,
-        color: '#fff',
-        marginBottom: 10,
-    },
-    paymentOptionsBox: {
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-        padding: 15,
-        borderRadius: 8,
-        marginBottom: 20,
-    },
-    paymentTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#fff',
-        marginBottom: 10,
-    },
-    paymentOption: {
-        backgroundColor: 'rgba(255, 255, 255, 0.1)',
-        padding: 15,
-        borderRadius: 8,
-        marginBottom: 10,
-        alignItems: 'center',
-    },
-    paymentText: {
-        fontSize: 16,
-        color: '#fff',
-    },
-    payButton: {
-        backgroundColor: '#fff',
-        padding: 15,
-        borderRadius: 8,
-        alignItems: 'center',
-        marginTop: 20,
-    },
-    payButtonText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#ff6f00',
-    },
+  gradientBackground: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 90,
+    paddingHorizontal: 20,
+  },
+  backArrow: {
+    marginTop: 70,
+    marginLeft: 20,
+    marginBottom: 20,
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  serviceDetailsContainer: {
+    backgroundColor: 'rgba(44, 44, 44, 0.98)',
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 10,
+  },
+  serviceDetails: {
+    marginTop: 10,
+  },
+  serviceText: {
+    fontSize: 16,
+    color: '#ccc',
+    marginBottom: 8,
+  },
+  paymentForm: {
+    marginTop: 10,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    marginBottom: 15,
+    width: '100%',
+    height: 50,
+  },
+  input: {
+    flex: 1,
+    marginLeft: 10,
+    fontSize: 16,
+    color: '#fff',
+  },
+  payButton: {
+    backgroundColor: '#ff6f00',
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    width: '100%',
+    marginTop: 20,
+  },
+  payButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
 });
 
 export default PaymentScreen;

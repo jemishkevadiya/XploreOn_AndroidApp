@@ -10,24 +10,25 @@ const ServicesScreen = ({ navigation }) => {
       colors={['#333333', '#fad0c4']}
       style={styles.background}
     >
-      {/* Back Arrow */}
+      {/* Back Arrow Section */}
       <View style={styles.backArrow}>
-       {/* Custom Header */}
-       <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-            <Ionicons name="arrow-back" size={30} color="#fff" />
-          </ TouchableOpacity> </View>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+          <Ionicons name="arrow-back" size={30} color="#fff" />
+        </TouchableOpacity>
+      </View>
+
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* Top Section */}
+        {/* Header */}
         <View style={styles.header}>
           <Text style={styles.headerText}>Our Services</Text>
         </View>
 
-        {/* Main Services Section */}
+        {/* Service Cards */}
         <View style={styles.servicesContainer}>
-          {/* Flights */}
-          <TouchableOpacity style={styles.card}>
+          {/* Flight Service */}
+          <View style={styles.card}>
             <ImageBackground
-              source={require('../../assets/flight.jpg')} 
+              source={require('../../assets/flight.jpg')}
               style={styles.cardImage}
               imageStyle={{ borderRadius: 15 }}
             >
@@ -39,52 +40,61 @@ const ServicesScreen = ({ navigation }) => {
                 <Text style={styles.cardButtonText}>Book Now</Text>
               </TouchableOpacity>
             </ImageBackground>
-          </TouchableOpacity>
+          </View>
 
-          {/* Hotels */}
-          <TouchableOpacity style={styles.card}>
+          {/* Hotel Service */}
+          <View style={styles.card}>
             <ImageBackground
               source={require('../../assets/hotel.jpg')}
               style={styles.cardImage}
               imageStyle={{ borderRadius: 15 }}
             >
               <Text style={styles.cardText}>Hotels</Text>
-              <TouchableOpacity style={styles.cardButton}  onPress={() => navigation.navigate('HotelBooking')}>
+              <TouchableOpacity
+                style={styles.cardButton}
+                onPress={() => navigation.navigate('HotelBooking')}
+              >
                 <Text style={styles.cardButtonText}>Book Now</Text>
               </TouchableOpacity>
             </ImageBackground>
-          </TouchableOpacity>
+          </View>
 
           {/* Car Rentals */}
-          <TouchableOpacity style={styles.card}>
+          <View style={styles.card}>
             <ImageBackground
               source={require('../../assets/Car_rental.jpg')}
               style={styles.cardImage}
               imageStyle={{ borderRadius: 15 }}
             >
               <Text style={styles.cardText}>Car Rentals</Text>
-              <TouchableOpacity style={styles.cardButton}  onPress={() => navigation.navigate('CarRentalsScreen')}>
+              <TouchableOpacity
+                style={styles.cardButton}
+                onPress={() => navigation.navigate('CarRentalsScreen')}
+              >
                 <Text style={styles.cardButtonText}>Book Now</Text>
               </TouchableOpacity>
             </ImageBackground>
-          </TouchableOpacity>
+          </View>
 
-          {/* Restaurants */}
-          <TouchableOpacity style={styles.card}>
+          {/* Restaurant Service */}
+          <View style={styles.card}>
             <ImageBackground
-              source={require('../../assets/restaurant.jpg')} 
+              source={require('../../assets/restaurant.jpg')}
               style={styles.cardImage}
               imageStyle={{ borderRadius: 15 }}
             >
               <Text style={styles.cardText}>Restaurants</Text>
-              <TouchableOpacity style={styles.cardButton}  onPress={() => navigation.navigate('RestaurantScreen')}>
+              <TouchableOpacity
+                style={styles.cardButton}
+                onPress={() => navigation.navigate('RestaurantScreen')}
+              >
                 <Text style={styles.cardButtonText}>Book Now</Text>
               </TouchableOpacity>
             </ImageBackground>
-          </TouchableOpacity>
+          </View>
         </View>
 
-        {/* Bottom Section for Itinerary */}
+        {/* Itinerary Section */}
         <View style={styles.bottomSection}>
           <Text style={styles.mainHeading}>Personalized Itinerary Generator</Text>
           <Text style={styles.subHeading}>
@@ -98,17 +108,12 @@ const ServicesScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
-      {/* Footer */}
       <Footer navigation={navigation} />
     </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   background: {
     flex: 1,
   },
@@ -116,14 +121,14 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: 100,
   },
+  backArrow: {
+    marginTop: 70,
+    marginLeft: 20,
+  },
   header: {
     flexDirection: 'row',
     alignSelf: 'center',
     overflow: 'hidden',
-  },
-  backArrow: {
-    marginTop: 70,
-    marginLeft: 20,
   },
   headerText: {
     fontSize: 40,
@@ -170,6 +175,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     alignSelf: 'flex-end',
     marginRight: 25,
+    marginBottom: 20,
   },
   cardButtonText: {
     color: '#fff',
