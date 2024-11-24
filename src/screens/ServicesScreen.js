@@ -12,7 +12,7 @@ const ServicesScreen = ({ navigation }) => {
     >
       <View style={styles.backArrow}>
        {/* Custom Header */}
-       <TouchableOpacity onPress={() => navigation.goBack()}>
+       <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
             <Ionicons name="arrow-back" size={30} color="#fff" />
           </ TouchableOpacity> </View>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -87,7 +87,7 @@ const ServicesScreen = ({ navigation }) => {
             itinerary generator.</Text>
           <TouchableOpacity
             style={styles.itineraryButton}
-            onPress={() => navigation.navigate('Itinerary')}
+            onPress={() => navigation.navigate('ItineraryScreen')}
           >
             <Text style={styles.itineraryButtonText}>Start Planning</Text>
           </TouchableOpacity>
