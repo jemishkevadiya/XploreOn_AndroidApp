@@ -16,7 +16,7 @@ const Footer = ({ navigation }) => {
       </TouchableOpacity>
 
       {/* Notifications Icon */}
-      <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
+      <TouchableOpacity onPress={() => navigation.navigate('NotificationsScreen')}>
         <Ionicons name="notifications-outline" size={30} color="#ffffff" />
       </TouchableOpacity>
 

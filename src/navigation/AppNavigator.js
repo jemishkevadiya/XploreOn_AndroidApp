@@ -18,6 +18,7 @@ import ItineraryScreen from '../screens/ItineraryScreen.js';
 import ItineraryDetailsScreen from '../screens/ItineraryDetailsScreen.js';
 import PaymentScreen from '../screens/PaymentScreen.js';
 import UserProfileScreen from '../screens/UserProfileScreen';
+import NotificationsScreen from '../screens/NotificationsScreen';
 
 const Stack = createStackNavigator();
 
@@ -41,7 +42,8 @@ const AppNavigator = () => {
         <Stack.Screen name="ItineraryScreen" component={ItineraryScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="ItineraryDetailsScreen" component={ItineraryDetailsScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="PaymentScreen" component={PaymentScreen} options={{ headerShown: false }}/>  
-        <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} options={{ headerShown: false }}/>  
+        <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} options={{ headerShown: false }}/> 
+        <Stack.Screen name="NotificationsScreen" component={NotificationsScreen} options={{ headerShown: false }}/> 
       </Stack.Navigator>
     </NavigationContainer>
   );
