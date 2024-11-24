@@ -28,8 +28,8 @@ const FlightScreen = ({ navigation }) => {
        keyboardShouldPersistTaps="handled">
         <View style={styles.container}>
           {/* Main Section */}
-          <Text style={styles.headerText}>Let's</Text>
-          <Text style={styles.headerText}>Explore</Text>
+          <Text style={styles.headerText}>{"Let's"}</Text>
+          <Text style={styles.headerText}>{"Explore Flights"}</Text>
 
           {/* Travel Options */}
           <View style={styles.radioGroup}>
@@ -42,7 +42,7 @@ const FlightScreen = ({ navigation }) => {
                 size={20}
                 color={tripType === 'One Way' ? '#ff6f00' : '#fff'}
               />
-              <Text style={styles.radioText}>One Way</Text>
+              <Text style={styles.radioText}>{"One Way"}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.radioOption}
@@ -53,7 +53,7 @@ const FlightScreen = ({ navigation }) => {
                 size={20}
                 color={tripType === 'Round Trip' ? '#ff6f00' : '#fff'}
               />
-              <Text style={styles.radioText}>Round Trip</Text>
+              <Text style={styles.radioText}>{"Round Trip"}</Text>
             </TouchableOpacity>
           </View>
 
@@ -90,7 +90,7 @@ const FlightScreen = ({ navigation }) => {
 
           {/* Search Button */}
           <TouchableOpacity style={styles.searchButton} onPress={() => navigation.navigate('FlightDetailsScreen')}>
-            <Text style={styles.searchButtonText}>Search</Text>
+            <Text style={styles.searchButtonText}>{"Search"}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

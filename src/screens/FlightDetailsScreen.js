@@ -126,15 +126,15 @@ const FlightDetailsScreen = ({ navigation }) => {
                     {/* Route Info */}
                     <View style={styles.routeInfo}>
                         <View style={styles.routeDetails}>
-                            <Text style={styles.routeCode}>NYC</Text>
-                            <Text style={styles.cityText}>New York</Text>
+                            <Text style={styles.routeCode}>{"NYC"}</Text>
+                            <Text style={styles.cityText}>{"New York"}</Text>
                         </View>
                         <View style={styles.routeArrow}>
                             <Ionicons name="airplane" size={24} color="#ff6f00" />
                         </View>
                         <View style={styles.routeDetails}>
-                            <Text style={styles.routeCode}>SFO</Text>
-                            <Text style={styles.cityText}>San Francisco</Text>
+                            <Text style={styles.routeCode}>{"SFO"}</Text>
+                            <Text style={styles.cityText}>{"San Francisco"}</Text>
                         </View>
                     </View>
                 </View>

@@ -30,8 +30,8 @@ const HotelBooking = ({ navigation }) => {
                     keyboardShouldPersistTaps="handled">
                     <View style={styles.container}>
                         {/* Main Section */}
-                        <Text style={styles.headerText}>Let's</Text>
-                        <Text style={styles.headerText}>Explore Car Rentals</Text>
+                        <Text style={styles.headerText}>{"Let's"}</Text>
+                        <Text style={styles.headerText}>{"Explore Car Rentals"}</Text>
 
                         {/* Input Fields */}
                         <View style={styles.inputGroup}>
@@ -58,8 +58,8 @@ const HotelBooking = ({ navigation }) => {
                         </View>
 
                         {/* Search Button */}
-                        <TouchableOpacity style={styles.searchButton} >
-                            <Text style={styles.searchButtonText}>Search</Text>
+                        <TouchableOpacity style={styles.searchButton} onPress={() => navigation.navigate('CarDetailsScreen')} >
+                            <Text style={styles.searchButtonText}>{"Search"}</Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
