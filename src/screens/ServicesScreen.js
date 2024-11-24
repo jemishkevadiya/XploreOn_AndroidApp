@@ -10,11 +10,13 @@ const ServicesScreen = ({ navigation }) => {
       colors={['#333333', '#fad0c4']} // Gradient colors
       style={styles.background}
     >
+      {/* Back Arrow */}
       <View style={styles.backArrow}>
-       {/* Custom Header */}
-       <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={30} color="#fff" />
-          </ TouchableOpacity> </View>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={30} color="#fff" />
+        </TouchableOpacity>
+      </View>
+
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {/* Top Section */}
         <View style={styles.header}>
@@ -31,21 +33,27 @@ const ServicesScreen = ({ navigation }) => {
               imageStyle={{ borderRadius: 15 }}
             >
               <Text style={styles.cardText}>Flights</Text>
-              <TouchableOpacity style={styles.cardButton} onPress={() => navigation.navigate('FlightBooking')}>
+              <TouchableOpacity
+                style={styles.cardButton}
+                onPress={() => navigation.navigate('FlightBooking')}
+              >
                 <Text style={styles.cardButtonText}>Book Now</Text>
               </TouchableOpacity>
             </ImageBackground>
           </TouchableOpacity>
 
           {/* Hotels */}
-          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Hotels')}>
+          <TouchableOpacity style={styles.card}>
             <ImageBackground
               source={require('../../assets/hotel.jpg')} // Replace with your hotel image path
               style={styles.cardImage}
               imageStyle={{ borderRadius: 15 }}
             >
               <Text style={styles.cardText}>Hotels</Text>
-              <TouchableOpacity style={styles.cardButton}  onPress={() => navigation.navigate('Hotels')}>
+              <TouchableOpacity
+                style={styles.cardButton}
+                onPress={() => navigation.navigate('HotelBooking')}
+              >
                 <Text style={styles.cardButtonText}>Book Now</Text>
               </TouchableOpacity>
             </ImageBackground>
@@ -59,7 +67,10 @@ const ServicesScreen = ({ navigation }) => {
               imageStyle={{ borderRadius: 15 }}
             >
               <Text style={styles.cardText}>Car Rentals</Text>
-              <TouchableOpacity style={styles.cardButton}  onPress={() => navigation.navigate('Cars')}>
+              <TouchableOpacity
+                style={styles.cardButton}
+                onPress={() => navigation.navigate('Cars')}
+              >
                 <Text style={styles.cardButtonText}>Book Now</Text>
               </TouchableOpacity>
             </ImageBackground>
@@ -73,7 +84,10 @@ const ServicesScreen = ({ navigation }) => {
               imageStyle={{ borderRadius: 15 }}
             >
               <Text style={styles.cardText}>Restaurants</Text>
-              <TouchableOpacity style={styles.cardButton}  onPress={() => navigation.navigate('Restaurants')}>
+              <TouchableOpacity
+                style={styles.cardButton}
+                onPress={() => navigation.navigate('Restaurants')}
+              >
                 <Text style={styles.cardButtonText}>Book Now</Text>
               </TouchableOpacity>
             </ImageBackground>
@@ -83,8 +97,9 @@ const ServicesScreen = ({ navigation }) => {
         {/* Bottom Section for Itinerary */}
         <View style={styles.bottomSection}>
           <Text style={styles.mainHeading}>Personalized Itinerary Generator</Text>
-          <Text style={styles.subHeading}>Say goodbye to stress and hello to seamless travel with our
-            itinerary generator.</Text>
+          <Text style={styles.subHeading}>
+            Say goodbye to stress and hello to seamless travel with our itinerary generator.
+          </Text>
           <TouchableOpacity
             style={styles.itineraryButton}
             onPress={() => navigation.navigate('Itinerary')}
@@ -93,6 +108,7 @@ const ServicesScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+
       {/* Footer */}
       <Footer navigation={navigation} />
     </LinearGradient>
