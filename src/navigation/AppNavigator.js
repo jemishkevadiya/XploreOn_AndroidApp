@@ -15,6 +15,7 @@ import CarDetailsScreen from '../screens/CarDetailsScreen.js';
 import RestaurantScreen from '../screens/RestaurantScreen.js';
 import RestaurantDetailsScreen from '../screens/RestaurantDetailsScreen.js';
 import ItineraryScreen from '../screens/ItineraryScreen.js';
+import ItineraryDetailsScreen from '../screens/ItineraryDetailsScreen.js';
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,7 @@ const AppNavigator = () => {
         <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="RestaurantDetailsScreen" component={RestaurantDetailsScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="ItineraryScreen" component={ItineraryScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="ItineraryDetailsScreen" component={ItineraryDetailsScreen} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

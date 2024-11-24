@@ -11,11 +11,11 @@ const ItineraryScreen = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require('../../assets/flight-bg.jpg')}
+      source={require('../../assets/itinerary-BG.jpg')}
       style={styles.background}
     >
       <LinearGradient
-        colors={['rgba(0,0,0,0.7)', 'transparent']} 
+        colors={['rgba(0,0,0,0.9)', 'transparent']} 
         style={styles.gradientOverlay}
       />
        <KeyboardAvoidingView
@@ -84,7 +84,7 @@ const ItineraryScreen = ({ navigation }) => {
           </View>
 
           {/* Search Button */}
-          <TouchableOpacity style={styles.searchButton} onPress={() => navigation.navigate('FlightDetailsScreen')}>
+          <TouchableOpacity style={styles.searchButton} onPress={() => navigation.navigate('ItineraryDetailsScreen')}>
             <Text style={styles.searchButtonText}>{"Search"}</Text>
           </TouchableOpacity>
         </View>
@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: 'bold',
     color: '#fff',
+    marginTop: 7,
   },
   radioGroup: {
     flexDirection: 'row',

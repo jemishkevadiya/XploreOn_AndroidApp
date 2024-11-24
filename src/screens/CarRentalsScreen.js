@@ -15,6 +15,7 @@ const HotelBooking = ({ navigation }) => {
         <ImageBackground
             source={require('../../assets/CarRental.jpg')}
             style={styles.background}
+            imageStyle={styles.backgroundImage}
         >
             <LinearGradient
                 colors={['rgba(0,0,0,0.8)', 'transparent']}
@@ -73,6 +74,9 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
         resizeMode: 'cover',
+    },
+    backgroundImage: {
+        opacity: 0.75,
     },
     scrollContent: {
         flexGrow: 1,
