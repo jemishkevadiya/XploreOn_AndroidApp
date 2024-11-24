@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react
 const HomeScreen = ({ navigation }) => {
   return (
     <ImageBackground
-      source={require('../../assets/HomeScreenBG.jpg')} // Background image
+      source={require('../../assets/HomeScreenBG.jpg')}
       style={styles.background}
     >
       <View style={styles.container}>
@@ -19,7 +19,7 @@ const HomeScreen = ({ navigation }) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate('NextScreen'); // Replace 'NextScreen' with your target screen name
+            navigation.navigate('SignIn');
           }}
         >
           <Text style={styles.buttonText}>Get Started</Text>
@@ -32,31 +32,31 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    resizeMode: 'cover', // Ensures the image covers the whole screen
+    resizeMode: 'cover', 
   },
   container: {
     flex: 1,
-    justifyContent: 'flex-end', // Aligns content to the bottom
+    justifyContent: 'flex-end',
     paddingHorizontal: 20,
-    paddingBottom: 50, // Adds spacing above the button
+    paddingBottom: 50,
   },
   mainHeading: {
     fontSize: 60,
     fontWeight: 'condensed',
-    color: '#ffffff', // Adjust to contrast with the background
+    color: '#ffffff', 
     textAlign: 'left',
     marginBottom: 30,
   },
   subHeading: {
     fontSize: 20,
-    color: '#dcdcdc', // Adjust to contrast with the background
+    color: '#dcdcdc', 
     textAlign: 'left',
     marginBottom: 90,
   },
   button: {
     position: 'absolute',
-    bottom: 80, // Adjust to fine-tune position
-    right: 20, // Aligns the button to the bottom-right
+    bottom: 80, 
+    right: 20,
     backgroundColor: '#ff6f00',
     paddingVertical: 15,
     paddingHorizontal: 30,
