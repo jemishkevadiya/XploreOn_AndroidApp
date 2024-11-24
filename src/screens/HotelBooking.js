@@ -52,7 +52,7 @@ const HotelBooking = ({ navigation }) => {
           </View>
 
           {/* Search Button */}
-          <TouchableOpacity style={styles.searchButton} >
+          <TouchableOpacity style={styles.searchButton} onPress={() => navigation.navigate('HotelDetailsScreen')} >
             <Text style={styles.searchButtonText}>Search</Text>
           </TouchableOpacity>
         </View>

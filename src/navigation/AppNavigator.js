@@ -10,6 +10,7 @@ import ServicesScreen from '../screens/ServicesScreen';
 import FlightBooking from '../screens/FlightBooking.js';
 import FlightDetailsScreen from '../screens/FlightDetailsScreen.js';
 import HotelBooking from '../screens/HotelBooking.js'
+import HotelDetailsScreen from '../screens/HotelDetailsScreen.js'
 
 const Stack = createStackNavigator();
 
@@ -35,6 +36,7 @@ const AppNavigator = () => {
         <Stack.Screen name="FlightBooking" component={FlightBooking} options={{ headerShown: false }}/>
         <Stack.Screen name="FlightDetailsScreen" component={FlightDetailsScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="HotelBooking" component={HotelBooking} options={{ headerShown: false }}/>
+        <Stack.Screen name="HotelDetailsScreen" component={HotelDetailsScreen} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
