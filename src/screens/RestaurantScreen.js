@@ -5,13 +5,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import Footer from '../components/Footer';
 
-const FlightScreen = ({ navigation }) => {
+const HotelBooking = ({ navigation }) => {
 
   const [tripType, setTripType] = useState('One Way');
 
   return (
     <ImageBackground
-      source={require('../../assets/flight-bg.jpg')}
+      source={require('../../assets/restaurant-BG.jpg')}
       style={styles.background}
     >
       <LinearGradient
@@ -29,67 +29,30 @@ const FlightScreen = ({ navigation }) => {
         <View style={styles.container}>
           {/* Main Section */}
           <Text style={styles.headerText}>{"Let's"}</Text>
-          <Text style={styles.headerText}>{"Explore Flights"}</Text>
-
-          {/* Travel Options */}
-          <View style={styles.radioGroup}>
-            <TouchableOpacity
-              style={styles.radioOption}
-              onPress={() => setTripType('One Way')}
-            >
-              <Ionicons
-                name={tripType === 'One Way' ? 'radio-button-on' : 'radio-button-off'}
-                size={20}
-                color={tripType === 'One Way' ? '#ff6f00' : '#fff'}
-              />
-              <Text style={styles.radioText}>{"One Way"}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.radioOption}
-              onPress={() => setTripType('Round Trip')}
-            >
-              <Ionicons
-                name={tripType === 'Round Trip' ? 'radio-button-on' : 'radio-button-off'}
-                size={20}
-                color={tripType === 'Round Trip' ? '#ff6f00' : '#fff'}
-              />
-              <Text style={styles.radioText}>{"Round Trip"}</Text>
-            </TouchableOpacity>
-          </View>
+          <Text style={styles.headerText}>{"Explore Restaurants"}</Text>
 
           {/* Input Fields */}
           <View style={styles.inputGroup}>
             <View style={styles.inputRow}>
-              <Ionicons name="airplane-outline" size={20} color="#fff" />
-              <TextInput style={styles.input} placeholder="From" placeholderTextColor="#ccc" />
-            </View>
-            <View style={styles.inputRow}>
               <Ionicons name="location-outline" size={20} color="#fff" />
-              <TextInput style={styles.input} placeholder="To" placeholderTextColor="#ccc" />
+              <TextInput style={styles.input} placeholder="Location" placeholderTextColor="#ccc" />
             </View>
             <View style={styles.inputRow}>
               <Ionicons name="calendar-outline" size={20} color="#fff" />
-              <TextInput style={styles.input} placeholder="Departure" placeholderTextColor="#ccc" />
+              <TextInput style={styles.input} placeholder="Check-in" placeholderTextColor="#ccc" />
             </View>
-            {/* Return input when user selected round-trip */}
-            {tripType === 'Round Trip' && (
               <View style={styles.inputRow}>
                 <Ionicons name="calendar-outline" size={20} color="#fff" />
-                <TextInput style={styles.input} placeholder="Return" placeholderTextColor="#ccc" />
+                <TextInput style={styles.input} placeholder="Check-out" placeholderTextColor="#ccc" />
               </View>
-            )}
-            <View style={styles.inputRow}>
-              <Ionicons name="briefcase-outline" size={20} color="#fff" />
-              <TextInput style={styles.input} placeholder="Class" placeholderTextColor="#ccc" />
-            </View>
             <View style={styles.inputRow}>
               <Ionicons name="people-outline" size={20} color="#fff" />
-              <TextInput style={styles.input} placeholder="Passenger" placeholderTextColor="#ccc" />
+              <TextInput style={styles.input} placeholder="Person" placeholderTextColor="#ccc" />
             </View>
           </View>
 
           {/* Search Button */}
-          <TouchableOpacity style={styles.searchButton} onPress={() => navigation.navigate('FlightDetailsScreen')}>
+          <TouchableOpacity style={styles.searchButton} onPress={() => navigation.navigate('RestaurantDetailsScreen')} >
             <Text style={styles.searchButtonText}>{"Search"}</Text>
           </TouchableOpacity>
         </View>
@@ -142,11 +105,12 @@ const styles = StyleSheet.create({
   },
   inputGroup: {
     marginVertical: 20,
+    marginTop: 60,
   },
   inputRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
     borderRadius: 10,
     paddingHorizontal: 15,
     marginVertical: 10,
@@ -172,4 +136,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FlightScreen;
+export default HotelBooking;

@@ -106,11 +106,11 @@ const FlightDetailsScreen = ({ navigation }) => {
 
     return (
         <ImageBackground
-      source={require('../../assets/flight-bg.jpg')} // Replace with your background image path
+      source={require('../../assets/flight-bg.jpg')} 
       style={styles.background}
     >
         <LinearGradient
-        colors={['rgba(0,0,0,0.7)', 'transparent']} // Gradient overlay
+        colors={['rgba(0,0,0,0.7)', 'transparent']}
         style={styles.gradientOverlay}
       />
         <View style={styles.container}>
@@ -126,15 +126,15 @@ const FlightDetailsScreen = ({ navigation }) => {
                     {/* Route Info */}
                     <View style={styles.routeInfo}>
                         <View style={styles.routeDetails}>
-                            <Text style={styles.routeCode}>NYC</Text>
-                            <Text style={styles.cityText}>New York</Text>
+                            <Text style={styles.routeCode}>{"NYC"}</Text>
+                            <Text style={styles.cityText}>{"New York"}</Text>
                         </View>
                         <View style={styles.routeArrow}>
                             <Ionicons name="airplane" size={24} color="#ff6f00" />
                         </View>
                         <View style={styles.routeDetails}>
-                            <Text style={styles.routeCode}>SFO</Text>
-                            <Text style={styles.cityText}>San Francisco</Text>
+                            <Text style={styles.routeCode}>{"SFO"}</Text>
+                            <Text style={styles.cityText}>{"San Francisco"}</Text>
                         </View>
                     </View>
                 </View>

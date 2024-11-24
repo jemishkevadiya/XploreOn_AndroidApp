@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import Footer from '../components/Footer';
 
-const FlightScreen = ({ navigation }) => {
+const ItineraryScreen = ({ navigation }) => {
 
   const [tripType, setTripType] = useState('One Way');
 
@@ -29,38 +29,12 @@ const FlightScreen = ({ navigation }) => {
         <View style={styles.container}>
           {/* Main Section */}
           <Text style={styles.headerText}>{"Let's"}</Text>
-          <Text style={styles.headerText}>{"Explore Flights"}</Text>
-
-          {/* Travel Options */}
-          <View style={styles.radioGroup}>
-            <TouchableOpacity
-              style={styles.radioOption}
-              onPress={() => setTripType('One Way')}
-            >
-              <Ionicons
-                name={tripType === 'One Way' ? 'radio-button-on' : 'radio-button-off'}
-                size={20}
-                color={tripType === 'One Way' ? '#ff6f00' : '#fff'}
-              />
-              <Text style={styles.radioText}>{"One Way"}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.radioOption}
-              onPress={() => setTripType('Round Trip')}
-            >
-              <Ionicons
-                name={tripType === 'Round Trip' ? 'radio-button-on' : 'radio-button-off'}
-                size={20}
-                color={tripType === 'Round Trip' ? '#ff6f00' : '#fff'}
-              />
-              <Text style={styles.radioText}>{"Round Trip"}</Text>
-            </TouchableOpacity>
-          </View>
+          <Text style={styles.headerText}>{"Explore Itinerary"}</Text>
 
           {/* Input Fields */}
           <View style={styles.inputGroup}>
             <View style={styles.inputRow}>
-              <Ionicons name="airplane-outline" size={20} color="#fff" />
+              <Ionicons name="location-outline" size={20} color="#fff" />
               <TextInput style={styles.input} placeholder="From" placeholderTextColor="#ccc" />
             </View>
             <View style={styles.inputRow}>
@@ -71,21 +45,42 @@ const FlightScreen = ({ navigation }) => {
               <Ionicons name="calendar-outline" size={20} color="#fff" />
               <TextInput style={styles.input} placeholder="Departure" placeholderTextColor="#ccc" />
             </View>
-            {/* Return input when user selected round-trip */}
-            {tripType === 'Round Trip' && (
               <View style={styles.inputRow}>
                 <Ionicons name="calendar-outline" size={20} color="#fff" />
                 <TextInput style={styles.input} placeholder="Return" placeholderTextColor="#ccc" />
               </View>
-            )}
             <View style={styles.inputRow}>
-              <Ionicons name="briefcase-outline" size={20} color="#fff" />
-              <TextInput style={styles.input} placeholder="Class" placeholderTextColor="#ccc" />
+              <Ionicons name="time-outline" size={20} color="#fff" />
+              <TextInput style={styles.input} placeholder="Duration" placeholderTextColor="#ccc" />
             </View>
             <View style={styles.inputRow}>
               <Ionicons name="people-outline" size={20} color="#fff" />
               <TextInput style={styles.input} placeholder="Passenger" placeholderTextColor="#ccc" />
             </View>
+          </View>
+          <View style={styles.radioGroup}>
+            <TouchableOpacity
+              style={styles.radioOption}
+              onPress={() => setTripType('Vegetarian')}
+            >
+              <Ionicons
+                name={tripType === 'Vegetarian' ? 'radio-button-on' : 'radio-button-off'}
+                size={30}
+                color={tripType === 'Vegetarian' ? '#ff6f00' : '#fff'}
+              />
+              <Text style={styles.radioText}>{"Vegetarian"}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.radioOption}
+              onPress={() => setTripType('Non-vegetarian')}
+            >
+              <Ionicons
+                name={tripType === 'Non-vegetarian' ? 'radio-button-on' : 'radio-button-off'}
+                size={30}
+                color={tripType === 'Non-vegetarian' ? '#ff6f00' : '#fff'}
+              />
+              <Text style={styles.radioText}>{"Non-vegetarian"}</Text>
+            </TouchableOpacity>
           </View>
 
           {/* Search Button */}
@@ -138,7 +133,7 @@ const styles = StyleSheet.create({
   radioText: {
     marginLeft: 5,
     color: '#fff',
-    fontSize: 16,
+    fontSize: 20,
   },
   inputGroup: {
     marginVertical: 20,
@@ -172,4 +167,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FlightScreen;
+export default ItineraryScreen;
