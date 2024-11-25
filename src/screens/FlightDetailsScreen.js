@@ -97,7 +97,8 @@ const FlightDetailsScreen = ({ navigation, route }) => {
   });
 
   const renderFlightCard = (item) => (
-    <View style={styles.card} key={item.id}>
+    <TouchableOpacity style={styles.card} key={item.id} onPress={() => navigation.navigate('PaymentScreen', 
+        { selectedFlight: item, serviceType: 'flight'})}>
       <View style={styles.cardHeader}>
         <Text style={styles.airlineName}>{item.airline}</Text>
       </View>
@@ -114,23 +115,9 @@ const FlightDetailsScreen = ({ navigation, route }) => {
           <Text style={styles.retryButtonText}>Go Back</Text>
         </TouchableOpacity>
       </View>
-    );
-  }
+    </TouchableOpacity>
+  );
 
-  const firstFlight = flights[0];
-  const departureCityName = firstFlight?.segments?.[0]?.departureAirport?.cityName || 'Unknown';
-  const destinationCityName = firstFlight?.segments?.[0]?.arrivalAirport?.cityName || 'Unknown';
-
-  const convertDuration = (totalSeconds) => {
-    if (!totalSeconds || totalSeconds < 0) {
-      return '0.00h'; // Handle invalid or missing data
-    }
-    
-    const totalHours = (totalSeconds / 3600).toFixed(2); // Convert minutes to hours and round to 2 decimal places
-    return `${totalHours}h`;
-    
-  };
-  
   return (
     <ImageBackground source={require('../../assets/flight-bg.jpg')} style={styles.background}>
       <LinearGradient colors={['rgba(0,0,0,0.7)', 'transparent']} style={styles.gradientOverlay} />
