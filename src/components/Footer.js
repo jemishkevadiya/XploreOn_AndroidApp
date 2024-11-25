@@ -11,17 +11,17 @@ const Footer = ({ navigation }) => {
       </TouchableOpacity>
 
       {/* History Icon */}
-      <TouchableOpacity onPress={() => navigation.navigate('History')}>
+      <TouchableOpacity onPress={() => navigation.navigate('BookingHistoryScreen')}>
         <Ionicons name="time-outline" size={30} color="#ffffff" />
       </TouchableOpacity>
 
       {/* Notifications Icon */}
-      <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
+      <TouchableOpacity onPress={() => navigation.navigate('NotificationsScreen')}>
         <Ionicons name="notifications-outline" size={30} color="#ffffff" />
       </TouchableOpacity>
 
       {/* Profile Icon */}
-      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+      <TouchableOpacity onPress={() => navigation.navigate('UserProfileScreen')}>
         <Ionicons name="person-outline" size={30} color="#ffffff" />
       </TouchableOpacity>
     </View>

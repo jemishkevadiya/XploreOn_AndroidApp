@@ -4,7 +4,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import Footer from '../components/Footer';
 
-const FlightDetailsScreen = ({ navigation }) => {
+const FlightDetailsScreen = ({ navigation, route }) => {
+  const { origin, destination, departureDate, returnDate, passengers, travelClass } = route.params;
+
   const flightData = [
     {
       id: '1',
@@ -14,7 +16,7 @@ const FlightDetailsScreen = ({ navigation }) => {
       originCity: 'New York',
       destinationCity: 'San Francisco',
       duration: '2h 40m',
-      date: '24 June',
+      date: '2024-12-01',
       time: '10:30 PM',
       price: '$540',
     },
@@ -26,7 +28,7 @@ const FlightDetailsScreen = ({ navigation }) => {
       originCity: 'New York',
       destinationCity: 'San Francisco',
       duration: '3h 30m',
-      date: '24 June',
+      date: '2024-12-13',
       time: '10:30 PM',
       price: '$490',
     },
@@ -38,7 +40,7 @@ const FlightDetailsScreen = ({ navigation }) => {
       originCity: 'New York',
       destinationCity: 'San Francisco',
       duration: '2h 55m',
-      date: '24 June',
+      date: '2024-12-28',
       time: '10:30 PM',
       price: '$520',
     },
@@ -47,9 +49,11 @@ const FlightDetailsScreen = ({ navigation }) => {
       airline: 'Delta Airlines',
       origin: 'NYC',
       destination: 'SFO',
+      originCity: 'New York',
+      destinationCity: 'San Francisco',
       duration: '3h 10m',
-      date: '24 June',
-      returnDate: '30 June',
+      date: '2024-12-25',
+      returnDate: '2024-12-30',
       time: '11:00 AM',
       price: '$580',
     },
@@ -58,9 +62,11 @@ const FlightDetailsScreen = ({ navigation }) => {
       airline: 'United Airlines',
       origin: 'NYC',
       destination: 'SFO',
+      originCity: 'New York',
+      destinationCity: 'San Francisco',
       duration: '3h 20m',
-      date: '24 June',
-      returnDate: '30 June',
+      date: '2024-12-15',
+      returnDate: '2024-12-20',
       time: '12:30 PM',
       price: '$620',
     },
@@ -70,12 +76,24 @@ const FlightDetailsScreen = ({ navigation }) => {
       origin: 'NYC',
       destination: 'SFO',
       duration: '2h 45m',
-      date: '24 June',
-      returnDate: '30 June',
+      originCity: 'New York',
+      destinationCity: 'San Francisco',
+      date: '2024-12-19',
+      returnDate: '2024-12-01',
       time: '1:00 PM',
       price: '$500',
     },
+  
   ];
+
+  const filteredFlights = flightData.filter((flight) => {
+    const isOriginMatch = flight.origin.toLowerCase() === origin.toLowerCase();
+    const isDestinationMatch = flight.destination.toLowerCase() === destination.toLowerCase();
+    const isDepartureMatch = flight.date === departureDate;
+    const isReturnMatch = returnDate ? flight.returnDate === returnDate : true; 
+
+    return isOriginMatch && isDestinationMatch && isDepartureMatch && isReturnMatch;
+  });
 
   const renderFlightCard = (item) => (
     <View style={styles.card} key={item.id}>
@@ -111,28 +129,24 @@ const FlightDetailsScreen = ({ navigation }) => {
             <Ionicons name="arrow-back" size={30} color="#fff" />
           </TouchableOpacity>
         </View>
-       <View style={styles.topSpace}></View>
-        {/* Route Info */}
         <View style={styles.routeContainer}>
-          <View style={styles.routeInfo}>
-            <View style={styles.routeDetails}>
-              <Text style={styles.routeCode}>NYC</Text>
-              <Text style={styles.cityText}>New York</Text>
-            </View>
-            <View style={styles.routeArrow}>
-              <Ionicons name="airplane" size={24} color="#ff6f00" />
-            </View>
-            <View style={styles.routeDetails}>
-              <Text style={styles.routeCode}>SFO</Text>
-              <Text style={styles.cityText}>San Francisco</Text>
-            </View>
-          </View>
+          <Text style={styles.routeText}>
+            Flights from <Text style={styles.highlight}>{origin}</Text> to{' '}
+            <Text style={styles.highlight}>{destination}</Text>
+          </Text>
         </View>
 
-        {/* Flight Cards */}
-        {flightData.map(renderFlightCard)}
+       
+        {filteredFlights.length > 0 ? (
+          filteredFlights.map(renderFlightCard)
+        ) : (
+          <View style={styles.noResults}>
+            <Text style={styles.noResultsText}>No flights found for the selected criteria.</Text>
+          </View>
+        )}
       </ScrollView>
-      {/* Footer */}
+
+    
       <Footer navigation={navigation} />
     </ImageBackground>
   );
@@ -156,39 +170,22 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   routeContainer: {
-    paddingHorizontal: 30,
-    paddingVertical: 20,
-  },
-  routeInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 10,
-    borderRadius: 10,
     marginBottom: 20,
-    paddingHorizontal: 18
+    paddingHorizontal: 20,
   },
-  routeDetails: {
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  routeCode: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  routeText: {
+    fontSize: 18,
     color: '#fff',
   },
-  cityText: {
-    fontSize: 14,
-    color: '#ccc',
-  },
-  routeArrow: {
-    alignItems: 'center',
+  highlight: {
+    fontWeight: 'bold',
+    color: '#ff6f00',
   },
   card: {
     backgroundColor: 'rgba(44, 44, 44, 0.98)',
     borderRadius: 10,
     padding: 15,
-    marginBottom: 15,
+    marginBottom: 20,
     marginHorizontal: 18,
   },
   cardHeader: {
@@ -238,9 +235,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#ff6f00',
   },
-  topSpace:{
-    height: 30
-  }
+  noResults: {
+    alignItems: 'center',
+    marginTop: 50,
+  },
+  noResultsText: {
+    fontSize: 18,
+    color: '#fff',
+  },
 });
 
 export default FlightDetailsScreen;

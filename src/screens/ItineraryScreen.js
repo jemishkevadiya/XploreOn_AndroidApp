@@ -84,7 +84,7 @@ const ItineraryScreen = ({ navigation }) => {
           </View>
 
           {/* Search Button */}
-          <TouchableOpacity style={styles.searchButton} onPress={() => navigation.navigate('FlightDetailsScreen')}>
+          <TouchableOpacity style={styles.searchButton} onPress={() => navigation.navigate('ItineraryDetailsScreen')}>
             <Text style={styles.searchButtonText}>{"Search"}</Text>
           </TouchableOpacity>
         </View>
