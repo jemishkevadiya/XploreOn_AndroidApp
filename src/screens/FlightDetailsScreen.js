@@ -95,7 +95,8 @@ const FlightDetailsScreen = ({ navigation, route }) => {
   });
 
   const renderFlightCard = (item) => (
-    <View style={styles.card} key={item.id}>
+    <TouchableOpacity style={styles.card} key={item.id} onPress={() => navigation.navigate('PaymentScreen', 
+        { selectedFlight: item, serviceType: 'flight'})}>
       <View style={styles.cardHeader}>
         <Text style={styles.airlineName}>{item.airline}</Text>
       </View>
@@ -114,7 +115,7 @@ const FlightDetailsScreen = ({ navigation, route }) => {
       <View style={styles.cardFooter}>
         <Text style={styles.priceText}>Price: {item.price}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
