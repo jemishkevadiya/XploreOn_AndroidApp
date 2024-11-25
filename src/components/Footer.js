@@ -11,7 +11,7 @@ const Footer = ({ navigation }) => {
       </TouchableOpacity>
 
       {/* History Icon */}
-      <TouchableOpacity onPress={() => navigation.navigate('History')}>
+      <TouchableOpacity onPress={() => navigation.navigate('BookingHistoryScreen')}>
         <Ionicons name="time-outline" size={30} color="#ffffff" />
       </TouchableOpacity>
 

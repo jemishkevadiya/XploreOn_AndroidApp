@@ -19,6 +19,7 @@ import ItineraryDetailsScreen from '../screens/ItineraryDetailsScreen.js';
 import PaymentScreen from '../screens/PaymentScreen.js';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
+import BookingHistoryScreen from '../screens/BookingHistoryScreen';
 
 const Stack = createStackNavigator();
 
@@ -44,6 +45,7 @@ const AppNavigator = () => {
         <Stack.Screen name="PaymentScreen" component={PaymentScreen} options={{ headerShown: false }}/>  
         <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} options={{ headerShown: false }}/> 
         <Stack.Screen name="NotificationsScreen" component={NotificationsScreen} options={{ headerShown: false }}/> 
+        <Stack.Screen name="BookingHistoryScreen" component={BookingHistoryScreen} options={{ headerShown: false }}/> 
       </Stack.Navigator>
     </NavigationContainer>
   );
