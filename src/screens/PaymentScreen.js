@@ -103,7 +103,7 @@ const PaymentScreen = ({ navigation, route }) => {
             <Ionicons name="mail-outline" size={20} color="#fff" />
             <TextInput style={styles.input} placeholder="Email" keyboardType="email-address" placeholderTextColor="#ccc" />
           </View>
-          <TouchableOpacity style={styles.payButton}>
+          <TouchableOpacity style={styles.payButton} onPress={() => navigation.navigate('ThankYouScreen')}>
             <Text style={styles.payButtonText}>Pay Now</Text>
           </TouchableOpacity>
         </View>
