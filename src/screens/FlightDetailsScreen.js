@@ -97,28 +97,28 @@ const FlightDetailsScreen = ({ navigation, route }) => {
     return isOriginMatch && isDestinationMatch && isDepartureMatch && isReturnMatch;
   });
 
-  const renderFlightCard = (item) => (
-    <View style={styles.card} key={item.id}>
-      <View style={styles.cardHeader}>
-        <Text style={styles.airlineName}>{item.airline}</Text>
-      </View>
-      <View style={styles.cardBody}>
-        <View style={styles.flightInfo}>
-          <Text style={styles.locationCode}>{item.origin}</Text>
-          <Ionicons name="airplane-outline" size={16} color="#fff" />
-          <Text style={styles.locationCode}>{item.destination}</Text>
-        </View>
-        <Text style={styles.flightDuration}>{item.duration}</Text>
-        <View style={styles.flightDetails}>
-          <Text style={styles.flightText}>Date: {item.date}</Text>
-          <Text style={styles.flightText}>Time: {item.time}</Text>
-        </View>
-      </View>
-      <View style={styles.cardFooter}>
-        <Text style={styles.priceText}>Price: {item.price}</Text>
-      </View>
-    </View>
-  );
+  const renderFlightCard = (item) => (
+    <View style={styles.card} key={item.id}>
+      <View style={styles.cardHeader}>
+        <Text style={styles.airlineName}>{item.airline}</Text>
+      </View>
+      <View style={styles.cardBody}>
+        <View style={styles.flightInfo}>
+          <Text style={styles.locationCode}>{item.origin}</Text>
+          <Ionicons name="airplane-outline" size={16} color="#fff" />
+          <Text style={styles.locationCode}>{item.destination}</Text>
+        </View>
+        <Text style={styles.flightDuration}>{item.duration}</Text>
+        <View style={styles.flightDetails}>
+          <Text style={styles.flightText}>Date: {item.date}</Text>
+          <Text style={styles.flightText}>Time: {item.time}</Text>
+        </View>
+      </View>
+      <View style={styles.cardFooter}>
+        <Text style={styles.priceText}>Price: {item.price}</Text>
+      </View>
+    </View>
+  );
 
   return (
     <ImageBackground source={require('../../assets/flight-bg.jpg')} style={styles.background}>
