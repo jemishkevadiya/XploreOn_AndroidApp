@@ -63,7 +63,8 @@ const CarDetailsScreen = ({ navigation }) => {
   ];
 
   const renderCarCard = (item) => (
-    <View style={styles.card} key={item.id}>
+    <TouchableOpacity style={styles.card} key={item.id} onPress={() => navigation.navigate('PaymentScreen', 
+      { selectedHotel: item, serviceType: 'car'})}>
       <Image source={item.image} style={styles.carImage} />
       <View style={styles.cardContent}>
         <Text style={styles.carName}>{item.name}</Text>
@@ -72,11 +73,12 @@ const CarDetailsScreen = ({ navigation }) => {
         <Text style={styles.availabilityText}>Availability: {item.availability}</Text>
         <Text style={styles.priceText}>Price: {item.price}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
-    <ImageBackground source={require('../../assets/CarRental.jpg')} style={styles.background}>
+    <ImageBackground source={require('../../assets/CarRental.jpg')} style={styles.background}
+    imageStyle={styles.backgroundImage}>
       <LinearGradient colors={['rgba(0,0,0,0.98)', 'transparent']} style={styles.gradientOverlay} />
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -107,6 +109,9 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     resizeMode: 'cover',
+  },
+  backgroundImage: {
+    opacity: 0.75,
   },
   gradientOverlay: {
     ...StyleSheet.absoluteFillObject,

@@ -13,6 +13,7 @@ const HotelBooking = ({ navigation }) => {
     <ImageBackground
       source={require('../../assets/restaurant-BG.jpg')}
       style={styles.background}
+      imageStyle={styles.backgroundImage}
     >
       <LinearGradient
         colors={['rgba(0,0,0,0.7)', 'transparent']} 
@@ -39,12 +40,8 @@ const HotelBooking = ({ navigation }) => {
             </View>
             <View style={styles.inputRow}>
               <Ionicons name="calendar-outline" size={20} color="#fff" />
-              <TextInput style={styles.input} placeholder="Check-in" placeholderTextColor="#ccc" />
+              <TextInput style={styles.input} placeholder="Reservation date" placeholderTextColor="#ccc" />
             </View>
-              <View style={styles.inputRow}>
-                <Ionicons name="calendar-outline" size={20} color="#fff" />
-                <TextInput style={styles.input} placeholder="Check-out" placeholderTextColor="#ccc" />
-              </View>
             <View style={styles.inputRow}>
               <Ionicons name="people-outline" size={20} color="#fff" />
               <TextInput style={styles.input} placeholder="Person" placeholderTextColor="#ccc" />
@@ -67,6 +64,9 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     resizeMode: 'cover',
+  },
+  backgroundImage: {
+    opacity: 0.80,
   },
   scrollContent: {
     flexGrow: 1,
