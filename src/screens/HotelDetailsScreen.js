@@ -4,81 +4,62 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import Footer from '../components/Footer';
 
-const HotelDetailsScreen = ({ navigation }) => {
-  const hotelData = [
-    {
-      id: '1',
-      name: 'Grand Palace Hotel',
-      location: 'New York, USA',
-      rating: '4.5',
-      price: '$300/night',
-      availableRooms: '5',
-      image: require('../../assets/GrandPalaceHotel.jpg'),
-    },
-    {
-      id: '2',
-      name: 'Skyline Resort',
-      location: 'San Francisco, USA',
-      rating: '4.2',
-      price: '$250/night',
-      availableRooms: '8',
-      image: require('../../assets/SkylineResort.jpg'),
-    },
-    {
-      id: '3',
-      name: 'Oceanview Hotel',
-      location: 'Miami, USA',
-      rating: '4.8',
-      price: '$400/night',
-      availableRooms: '3',
-      image: require('../../assets/OceanviewHotel.jpg'),
-    },
-    {
-      id: '4',
-      name: 'Mountain Escape Lodge',
-      location: 'Denver, USA',
-      rating: '4.7',
-      price: '$350/night',
-      availableRooms: '4',
-      image: require('../../assets/MountainEscapeLodge.jpeg'),
-    },
-    {
-      id: '5',
-      name: 'Urban Retreat',
-      location: 'Seattle, USA',
-      rating: '4.3',
-      price: '$270/night',
-      availableRooms: '6',
-      image: require('../../assets/UrbanRetreat.jpg'),
-    },
-    {
-      id: '6',
-      name: 'Luxury Stay Inn',
-      location: 'Las Vegas, USA',
-      rating: '4.9',
-      price: '$500/night',
-      availableRooms: '2',
-      image: require('../../assets/LuxuryStayInn.jpg'),
-    },
-  ];
+const HotelDetailsScreen = ({ route, navigation }) => {
+  const { hotels } = route.params; 
 
-  const renderHotelCard = (item) => (
-    <TouchableOpacity style={styles.card} key={item.id} onPress={() => navigation.navigate('PaymentScreen', 
-      { selectedHotel: item, serviceType: 'hotel'})}>
-      <Image source={item.image} style={styles.hotelImage} />
-      <View style={styles.cardContent}>
-        <Text style={styles.hotelName}>{item.name}</Text>
-        <Text style={styles.locationText}>Location: {item.location}</Text>
-        <Text style={styles.ratingText}>Rating: {item.rating} ⭐</Text>
-        <Text style={styles.availableText}>Available Rooms: {item.availableRooms}</Text>
-        <Text style={styles.priceText}>Price: {item.price}</Text>
-      </View>
-    </TouchableOpacity>
-  );
+  console.log('Hotel data:', hotels);
+
+  const renderHotelCard = (item) => {
+
+    const hotelName = item.name ? item.name : 'No Name Available';
+    const hotelLocation = item.location ? item.location : 'No Location Available';
+    const hotelCheckin = item.checkin ? item.checkin : 'No Check-in Time Available';
+    const hotelCheckout = item.checkout ? item.checkout : 'No Checkout Time Available';
+    const hotelPrice = item.price ?  parseFloat(item.price).toFixed(2) :'No Price Available';
+    const hotelRating = item.rating ? item.rating : 'No Rating Available';
+
+
+    console.log('Hotel Item:', item);
+
+    return (
+      <TouchableOpacity
+        style={styles.card}
+        key={item.name} 
+        onPress={() =>
+          navigation.navigate('PaymentScreen', {
+            selectedService: {
+              name: hotelName,
+              location: hotelLocation,
+              checkin: hotelCheckin,
+              checkout: hotelCheckout,
+              price: hotelPrice,
+              rating: hotelRating,
+            },
+            serviceType: 'hotel',
+          })
+        }
+      >
+        
+        {item.imageUrl ? (
+          <Image source={{ uri: item.imageUrl }} style={styles.hotelImage} />
+        ) : (
+          <View style={styles.hotelImage} /> 
+        )}
+
+        <View style={styles.cardContent}>
+          
+          <Text style={styles.hotelName}>{hotelName}</Text>
+          <Text style={styles.locationText}>Location: {hotelLocation}</Text>
+          <Text style={styles.ratingText}>Rating: {hotelRating} ⭐</Text>
+          <Text style={styles.priceText}>Price: ${hotelPrice}</Text> 
+
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   return (
-    <ImageBackground source={require('../../assets/hotel-BG.jpg')} style={styles.background}
-    imageStyle={styles.backgroundImage}>
+    <ImageBackground source={require('../../assets/hotel-BG.jpg')} style={styles.background} imageStyle={styles.backgroundImage}>
       <LinearGradient colors={['rgba(0,0,0,0.98)', 'transparent']} style={styles.gradientOverlay} />
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -95,12 +76,15 @@ const HotelDetailsScreen = ({ navigation }) => {
         </View>
 
         {/* Hotel Cards */}
-        {hotelData.map(renderHotelCard)}
-
-    
+        {hotels && hotels.length > 0 ? (
+          hotels.map((hotel, index) => renderHotelCard(hotel)) 
+        ) : (
+          <Text style={styles.noHotelsText}>No hotels available</Text> 
+        )}
       </ScrollView>
-       {/* Footer */}
-       <Footer navigation={navigation} />
+
+      {/* Footer */}
+      <Footer navigation={navigation} />
     </ImageBackground>
   );
 };
@@ -167,16 +151,17 @@ const styles = StyleSheet.create({
     color: '#ccc',
     marginBottom: 3,
   },
-  availableText: {
-    fontSize: 14,
-    color: '#ccc',
-    marginBottom: 3,
-  },
   priceText: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#ff6f00',
     marginTop: 5,
+  },
+  noHotelsText: {
+    fontSize: 18,
+    color: '#fff',
+    textAlign: 'center',
+    marginTop: 20,
   },
 });
 
