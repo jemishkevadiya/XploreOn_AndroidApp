@@ -152,44 +152,23 @@ const styles = StyleSheet.create({
     paddingBottom: 100,
   },
   routeContainer: {
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-  },
-  routeInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 10,
-    borderRadius: 10,
     marginBottom: 20,
-    paddingHorizontal: 18,
+    paddingHorizontal: 20,
   },
-  routeDetails: {
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  routeCode: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  routeText: {
+    fontSize: 18,
     color: '#fff',
   },
-  cityText: {
-    fontSize: 14,
-    color: '#ccc',
-  },
-  routeArrow: {
-    alignItems: 'center',
-  },
-  cardList: {
-    paddingBottom: 90,
-    paddingHorizontal: 18,
+  highlight: {
+    fontWeight: 'bold',
+    color: '#ff6f00',
   },
   card: {
     backgroundColor: 'rgba(44, 44, 44, 0.98)',
     borderRadius: 10,
     padding: 15,
-    marginBottom: 15,
-    paddingHorizontal: 18,
+    marginBottom: 20,
+    marginHorizontal: 18,
   },
   cardHeader: {
     flexDirection: 'row',
@@ -206,6 +185,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#fff',
+  },
+  cardBody: {
+    marginBottom: 10,
   },
   flightInfo: {
     flexDirection: 'row',
