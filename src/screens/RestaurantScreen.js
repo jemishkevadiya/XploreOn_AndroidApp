@@ -1,13 +1,47 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ImageBackground, TextInput, TouchableOpacity, KeyboardAvoidingView,
-   ScrollView, Platform } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, TextInput, TouchableOpacity, KeyboardAvoidingView, 
+  ScrollView, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import Footer from '../components/Footer';
+import { searchLocation } from '../utils/api';
+import { Alert } from 'react-native'; 
 
-const HotelBooking = ({ navigation }) => {
+const RestaurantBooking = ({ navigation }) => {
+  const [location, setLocation] = useState('');
+  const [reservationDate, setReservationDate] = useState('');
+  const [person, setPerson] = useState('');
 
-  const [tripType, setTripType] = useState('One Way');
+  const isFutureDate = (date) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const inputDate = new Date(date);
+    inputDate.setHours(0, 0, 0, 0);
+  
+    return inputDate >= today;
+  };
+  
+  
+  const handleSearch = async () => {
+    try {
+      if (!location || !reservationDate || !person) {
+        Alert.alert('Error', 'All fields are required!');
+        return;
+      }
+
+      if (!isFutureDate(reservationDate)) {
+        Alert.alert('Error', 'Please select a current or future date for your reservation.');
+        return;
+      }
+
+      console.log('Date is valid, proceeding with search...');
+      const locationId = await searchLocation(location); 
+      navigation.navigate('RestaurantDetailsScreen', { locationId, reservationDate, person });
+    } catch (error) {
+      Alert.alert('Error', 'Unable to fetch location. Please try again.');
+      console.error(error);
+    }
+  };
 
   return (
     <ImageBackground
@@ -16,49 +50,65 @@ const HotelBooking = ({ navigation }) => {
       imageStyle={styles.backgroundImage}
     >
       <LinearGradient
-        colors={['rgba(0,0,0,0.7)', 'transparent']} 
+        colors={['rgba(0,0,0,0.7)', 'transparent']}
         style={styles.gradientOverlay}
       />
-       <KeyboardAvoidingView
+      <KeyboardAvoidingView
         style={styles.keyboardAvoidingView}
-        behavior={Platform.OS === 'android' ? 'padding' : 'height'} 
-        keyboardVerticalOffset={Platform.OS === 'android' ? 70 : 0} 
+        behavior={Platform.OS === 'android' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'android' ? 70 : 0}
       >
-      <ScrollView contentContainerStyle={styles.scrollContent}
-       showsVerticalScrollIndicator={false}
-       keyboardShouldPersistTaps="handled">
-        <View style={styles.container}>
-          {/* Main Section */}
-          <Text style={styles.headerText}>{"Let's"}</Text>
-          <Text style={styles.headerText}>{"Explore Restaurants"}</Text>
+        <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+          <View style={styles.container}>
+            <Text style={styles.headerText}>{"Let's"}</Text>
+            <Text style={styles.headerText}>{"Explore Restaurants"}</Text>
 
-          {/* Input Fields */}
-          <View style={styles.inputGroup}>
-            <View style={styles.inputRow}>
-              <Ionicons name="location-outline" size={20} color="#fff" />
-              <TextInput style={styles.input} placeholder="Location" placeholderTextColor="#ccc" />
+            {/* Input Fields */}
+            <View style={styles.inputGroup}>
+              <View style={styles.inputRow}>
+                <Ionicons name="location-outline" size={20} color="#fff" />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Location"
+                  placeholderTextColor="#ccc"
+                  value={location}
+                  onChangeText={setLocation}
+                />
+              </View>
+              <View style={styles.inputRow}>
+                <Ionicons name="calendar-outline" size={20} color="#fff" />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Reservation date"
+                  placeholderTextColor="#ccc"
+                  value={reservationDate}
+                  onChangeText={setReservationDate}
+                />
+              </View>
+              <View style={styles.inputRow}>
+                <Ionicons name="people-outline" size={20} color="#fff" />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Person"
+                  placeholderTextColor="#ccc"
+                  value={person}
+                  onChangeText={setPerson}
+                />
+              </View>
             </View>
-            <View style={styles.inputRow}>
-              <Ionicons name="calendar-outline" size={20} color="#fff" />
-              <TextInput style={styles.input} placeholder="Reservation date" placeholderTextColor="#ccc" />
-            </View>
-            <View style={styles.inputRow}>
-              <Ionicons name="people-outline" size={20} color="#fff" />
-              <TextInput style={styles.input} placeholder="Person" placeholderTextColor="#ccc" />
-            </View>
+
+            {/* Search Button */}
+            <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+              <Text style={styles.searchButtonText}>{"Search"}</Text>
+            </TouchableOpacity>
           </View>
-
-          {/* Search Button */}
-          <TouchableOpacity style={styles.searchButton} onPress={() => navigation.navigate('RestaurantDetailsScreen')} >
-            <Text style={styles.searchButtonText}>{"Search"}</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+        </ScrollView>
       </KeyboardAvoidingView>
       <Footer navigation={navigation} />
     </ImageBackground>
   );
 };
+
 
 const styles = StyleSheet.create({
   background: {
@@ -136,4 +186,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HotelBooking;
+export default RestaurantBooking;
