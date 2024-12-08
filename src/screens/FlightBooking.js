@@ -20,6 +20,12 @@ const FlightScreen = ({ navigation }) => {
   const [passengers, setPassengers] = useState('');
   const [travelClass, setTravelClass] = useState('');
 
+  const isFutureDate = (selectedDate) => {
+    const currentDate = new Date(); 
+    const tripDate = new Date(selectedDate); 
+    return tripDate >= currentDate; 
+  };
+
   const handleSearch = async () => {
     if (!origin || !destination || !departureDate || !passengers || !travelClass) {
       Alert.alert('Error', 'Please fill in all required fields.');
@@ -30,6 +36,24 @@ const FlightScreen = ({ navigation }) => {
       Alert.alert('Error', 'Origin and destination cannot be the same.');
       return;
     }
+
+    if (!isFutureDate(departureDate)) {
+      Alert.alert('Departure date must be today or in the future.');
+      return;
+    }
+  
+    if (tripType === 'Round Trip') {
+      if (!isFutureDate(returnDate)) {
+        Alert.alert('Error', 'Return date must be today or in the future.');
+        return;
+      }
+  
+      if (new Date(returnDate) <= new Date(departureDate)) {
+        Alert.alert('Error', 'Return date must be after the departure date.');
+        return;
+      }
+    }
+    
 
     const passengerCount = parseInt(passengers, 10);
     if (isNaN(passengerCount) || passengerCount <= 0) {
