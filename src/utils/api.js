@@ -18,3 +18,4 @@ export const fetchFlightSearchResults = async (params) => {
     throw error;
   }
 };
+
