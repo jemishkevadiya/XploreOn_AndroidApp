@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, ImageBackground } from 'react-native';
-import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import Footer from '../components/Footer'; 
@@ -19,26 +18,33 @@ const CarDetailsScreen = ({ route, navigation }) => {
   }
 
   
-  const renderCarCard = ({ item }) => {
+  const renderCarCard = ({ item }) => (
+    <TouchableOpacity 
+      style={styles.card} 
+      onPress={() => 
+        navigation.navigate('PaymentScreen', {
+          selectedService: {
+            vehicleName: item.vehicle_name || 'No Vehicle Name Available',
+            location: item.location || 'No Location Available',
+            price: item.price ? `CAD $${item.price}` : 'No Price Available',
+            supplier: item.supplier || 'No Supplier Available',
+          },
+          serviceType: 'car',
+        })
+      }
+    >
+      <Image source={{ uri: item.image_url }} style={styles.carImage} />
+      <View style={styles.cardContent}>
+        <Text style={styles.carName}>{item.vehicle_name}</Text>
+        <Text style={styles.locationText}>Location: {item.location}</Text>
+        <Text style={styles.doorText}>Doors: {item.doors}</Text>
+        <Text style={styles.transmissionText}>Transmission: {item.transmission}</Text>
+        <Text style={styles.priceText}>Price: CAD ${item.price}</Text>
+        <Text style={styles.supplierText}>Supplier: {item.supplier}</Text>
+      </View>
+    </TouchableOpacity>
+  );
   
-    
-    return (
-      <TouchableOpacity 
-        style={styles.card} 
-        onPress={() => navigation.navigate('PaymentScreen', { selectedCar: item, serviceType: 'car' })}
-      >
-        <Image source={{ uri: item.image_url }} style={styles.carImage} />
-        <View style={styles.cardContent}>
-          <Text style={styles.carName}>{item.vehicle_name}</Text>
-          <Text style={styles.locationText}>Location: {item.location}</Text>
-          <Text style={styles.doorText}>Doors: {item.doors}</Text>
-          <Text style={styles.transmissionText}>transmission: {item.transmission}</Text>
-          <Text style={styles.priceText}>Price: CAD ${item.price}</Text>
-          <Text style={styles.supplierText}>supplier: {item.supplier} </Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
 
   return (
     <ImageBackground 
@@ -46,14 +52,8 @@ const CarDetailsScreen = ({ route, navigation }) => {
       style={styles.background}
       imageStyle={styles.backgroundImage}
     >
-    <ImageBackground 
-      source={require('../../assets/CarRental.jpg')} 
-      style={styles.background}
-      imageStyle={styles.backgroundImage}
-    >
       <LinearGradient colors={['rgba(0,0,0,0.98)', 'transparent']} style={styles.gradientOverlay} />
 
-      <View style={styles.scrollContent}>
       <View style={styles.scrollContent}>
         {/* Header */}
         <View style={styles.backArrow}>
@@ -73,14 +73,7 @@ const CarDetailsScreen = ({ route, navigation }) => {
           renderItem={renderCarCard}
         />
       </View>
-        <FlatList
-          data={carData}  
-          renderItem={renderCarCard}
-        />
-      </View>
 
-      {/* Footer */}
-      <Footer navigation={navigation} />
       {/* Footer */}
       <Footer navigation={navigation} />
     </ImageBackground>
@@ -100,13 +93,10 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flex: 1,
-    flex: 1,
     paddingBottom: 90,
-    paddingTop: 30,
     paddingTop: 30,
   },
   backArrow: {
-    marginTop: 70,
     marginTop: 20,
     marginLeft: 20,
     marginBottom: 20,
@@ -154,17 +144,10 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   doorText: {
-  supplierText: {
     fontSize: 14,
     color: '#ccc',
     marginBottom: 3,
   },
-  doorText: {
-    fontSize: 14,
-    color: '#ccc',
-    marginBottom: 3,
-  },
-  transmissionText: {
   transmissionText: {
     fontSize: 14,
     color: '#ccc',
@@ -175,15 +158,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#ff6f00',
     marginTop: 5,
-  },
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorMessage: {
-    fontSize: 18,
-    color: '#ff0000',
   },
   centered: {
     flex: 1,
