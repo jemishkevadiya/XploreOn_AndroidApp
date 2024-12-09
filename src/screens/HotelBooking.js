@@ -20,13 +20,10 @@ const HotelBooking = ({ navigation }) => {
   const getDestinationCode = async (location) => {
     try {
       setLoading(true);
-      console.log('Fetching destination code for location:', location);
       const data = await fetchDestinationCode(location); 
-      console.log('Destination data:', JSON.stringify(data, null, 2));
     
       if (data && data.data && data.data[0] && data.data[0].search_type === 'city') {
         const destinationCode = data.data[0].dest_id;
-        console.log('Destination code found:', destinationCode);
         getHotelData(destinationCode); 
       } else {
         setError('City destination not found');
@@ -42,11 +39,7 @@ const HotelBooking = ({ navigation }) => {
   // Fetch hotels data based on destination code and other search parameters
   const getHotelData = async (destinationCode) => {
     try {
-      console.log('Fetching hotels for destination code:', destinationCode);
       const data = await fetchHotelData(destinationCode, checkIn, checkOut, person); 
-    
-      console.log('Hotel data:', JSON.stringify(data, null, 2));
-    
       if (data && data.data && data.data.hotels && data.data.hotels.length > 0) {
         const hotelList = data.data.hotels.map((hotel) => {
           const hotelProperty = hotel.property || {};
@@ -62,16 +55,14 @@ const HotelBooking = ({ navigation }) => {
           return {
             name,
             location,
-            imageUrl: photoUrls[0] || 'default_image_url.jpg',
+            imageUrl: photoUrls[0],
             checkin,
             checkout,
             price,
             rating: reviewScore,
           };
         });
-    
-        console.log('Mapped hotel data:', JSON.stringify(hotelList, null, 2));
-    
+
         setHotelData(hotelList);
         navigation.navigate('HotelDetailsScreen', { hotels: hotelList }); 
       } else {
@@ -95,7 +86,6 @@ const HotelBooking = ({ navigation }) => {
         setError('Please enter a valid number for persons');
         return;
       }
-      console.log('Search started with parameters:', { location, checkIn, checkOut, person });
       setLoading(true); 
       getDestinationCode(location);
     } else {

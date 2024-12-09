@@ -52,3 +52,7 @@ export const fetchHotelData = async (destinationCode, checkIn, checkOut, person)
     throw error;
   }
 };
+
+
+
+

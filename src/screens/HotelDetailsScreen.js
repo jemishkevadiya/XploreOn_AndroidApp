@@ -60,8 +60,8 @@ const HotelDetailsScreen = ({ route, navigation }) => {
         )}
         <View style={styles.cardContent}>
           <Text style={styles.hotelName}>{hotelName}</Text>
-          <Text style={styles.hotelCheckin}>{hotelCheckin}</Text>
-          <Text style={styles.hotelCheckout}>{hotelCheckout}</Text>
+          <Text style={styles.hotelCheckin}>checkin: {hotelCheckin}</Text>
+          <Text style={styles.hotelCheckout}>Checkout: {hotelCheckout}</Text>
           <Text style={styles.locationText}>Location: {hotelLocation}</Text>
           <Text style={styles.ratingText}>Rating: {hotelRating} ⭐</Text>
           <Text style={styles.priceText}>Price: ${hotelPrice}</Text>
@@ -86,7 +86,7 @@ const HotelDetailsScreen = ({ route, navigation }) => {
         </View>
 
         {hotels && hotels.length > 0 ? (
-          hotels.map((hotel, index) => renderHotelCard(hotel))
+          hotels.map((hotel) => renderHotelCard(hotel))
         ) : (
           <Text style={styles.noHotelsText}>No hotels available</Text>
         )}
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   hotelImage: {
     width: 120,
-    height: 140,
+    height: 180,
   },
   cardContent: {
     flex: 1,
@@ -153,16 +153,25 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#ccc',
     marginBottom: 3,
+    fontWeight: 'bold',
+  },
+  hotelCheckin: {
+    fontSize: 14,
+    color: '#ccc',
+    marginBottom: 3,
+    fontWeight: 'bold',
+  },
+  hotelCheckout: {
+    fontSize: 14,
+    color: '#ccc',
+    marginBottom: 3,
+    fontWeight: 'bold',
   },
   ratingText: {
     fontSize: 14,
     color: '#ccc',
     marginBottom: 3,
-  },
-  availableText: {
-    fontSize: 14,
-    color: '#ccc',
-    marginBottom: 3,
+    fontWeight: 'bold',
   },
   priceText: {
     fontSize: 16,
