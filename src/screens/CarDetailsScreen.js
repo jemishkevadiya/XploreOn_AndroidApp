@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import Footer from '../components/Footer'; 
@@ -45,8 +46,14 @@ const CarDetailsScreen = ({ route, navigation }) => {
       style={styles.background}
       imageStyle={styles.backgroundImage}
     >
+    <ImageBackground 
+      source={require('../../assets/CarRental.jpg')} 
+      style={styles.background}
+      imageStyle={styles.backgroundImage}
+    >
       <LinearGradient colors={['rgba(0,0,0,0.98)', 'transparent']} style={styles.gradientOverlay} />
 
+      <View style={styles.scrollContent}>
       <View style={styles.scrollContent}>
         {/* Header */}
         <View style={styles.backArrow}>
@@ -66,7 +73,14 @@ const CarDetailsScreen = ({ route, navigation }) => {
           renderItem={renderCarCard}
         />
       </View>
+        <FlatList
+          data={carData}  
+          renderItem={renderCarCard}
+        />
+      </View>
 
+      {/* Footer */}
+      <Footer navigation={navigation} />
       {/* Footer */}
       <Footer navigation={navigation} />
     </ImageBackground>
@@ -86,10 +100,13 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flex: 1,
+    flex: 1,
     paddingBottom: 90,
+    paddingTop: 30,
     paddingTop: 30,
   },
   backArrow: {
+    marginTop: 20,
     marginTop: 20,
     marginLeft: 20,
     marginBottom: 20,
@@ -137,10 +154,17 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   doorText: {
+  supplierText: {
     fontSize: 14,
     color: '#ccc',
     marginBottom: 3,
   },
+  doorText: {
+    fontSize: 14,
+    color: '#ccc',
+    marginBottom: 3,
+  },
+  transmissionText: {
   transmissionText: {
     fontSize: 14,
     color: '#ccc',
@@ -161,7 +185,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#ff0000',
   },
+  centered: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorMessage: {
+    fontSize: 18,
+    color: '#ff0000',
+  },
 });
 
 export default CarDetailsScreen;
+
 
