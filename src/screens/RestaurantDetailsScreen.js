@@ -30,10 +30,15 @@ const RestaurantDetailsScreen = ({ route, navigation }) => {
   const renderRestaurantCard = (item) => (
     <TouchableOpacity
       style={styles.card}
-      key={item.name} 
+      key={item.name}
       onPress={() =>
         navigation.navigate('PaymentScreen', {
-          selectedHotel: item,
+          selectedService: {
+            name: item.name || 'No Name Available',
+            location: item.parentGeoName || 'No Location Available',
+            date: reservationDate || 'No Reservation Date',
+            type: item.tags.join(', ') || 'No Price Available',
+          },
           serviceType: 'restaurant',
         })
       }
@@ -49,6 +54,7 @@ const RestaurantDetailsScreen = ({ route, navigation }) => {
       </View>
     </TouchableOpacity>
   );
+  
 
   return (
     <ImageBackground

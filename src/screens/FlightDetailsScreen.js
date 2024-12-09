@@ -94,7 +94,7 @@ const FlightDetailsScreen = ({ navigation, route }) => {
                 const departureTime = leg?.departureTime || 'N/A';
                 const arrivalTime = leg?.arrivalTime || 'N/A';
                 const duration = convertDuration(leg?.totalTime || 0);
-                const price = `${flight.priceBreakdown?.total?.currencyCode} $${flight.priceBreakdown?.total?.units}`;
+                const price = `${flight.priceBreakdown?.total?.currencyCode} ${flight.priceBreakdown?.total?.units}`;
 
                 return (
                   <TouchableOpacity
@@ -172,23 +172,44 @@ const styles = StyleSheet.create({
     paddingBottom: 100,
   },
   routeContainer: {
-    marginBottom: 20,
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
+    paddingVertical: 10,
   },
-  routeText: {
-    fontSize: 18,
+  routeInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 20,
+    paddingHorizontal: 18,
+  },
+  routeDetails: {
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
+  routeCode: {
+    fontSize: 24,
+    fontWeight: 'bold',
     color: '#fff',
   },
-  highlight: {
-    fontWeight: 'bold',
-    color: '#ff6f00',
+  cityText: {
+    fontSize: 14,
+    color: '#ccc',
+  },
+  routeArrow: {
+    alignItems: 'center',
+  },
+  cardList: {
+    paddingBottom: 90,
+    paddingHorizontal: 18,
   },
   card: {
     backgroundColor: 'rgba(44, 44, 44, 0.98)',
     borderRadius: 10,
     padding: 15,
-    marginBottom: 20,
-    marginHorizontal: 18,
+    marginBottom: 15,
+    paddingHorizontal: 18,
   },
   cardHeader: {
     flexDirection: 'row',
@@ -205,9 +226,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#fff',
-  },
-  cardBody: {
-    marginBottom: 10,
   },
   flightInfo: {
     flexDirection: 'row',
@@ -236,7 +254,7 @@ const styles = StyleSheet.create({
     marginLeft: 25
   },
   priceText: {
-    fontSize: 15,
+    fontSize: 17,
     marginLeft: 220,
     fontWeight: 'bold',
     color: '#ff6f00',

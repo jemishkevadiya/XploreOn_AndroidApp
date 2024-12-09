@@ -29,7 +29,7 @@ const PaymentScreen = ({ navigation, route }) => {
           <Text style={styles.serviceText}>Location: {selectedService?.location || 'Unknown'}</Text>
           <Text style={styles.serviceText}>Check-In: {selectedService?.checkin || 'N/A'}</Text>
           <Text style={styles.serviceText}>Check-Out: {selectedService?.checkout || 'N/A'}</Text>
-          <Text style={styles.serviceText}>Price: {selectedService?.price || 'N/A'}</Text>
+          <Text style={styles.serviceText}>Price: ${selectedService?.price || 'N/A'}</Text>
           <Text style={styles.serviceText}>Rating: {selectedService?.rating || 'N/A'} ⭐</Text>
         </View>
       </View>
@@ -39,10 +39,10 @@ const PaymentScreen = ({ navigation, route }) => {
         <View style={styles.serviceDetailsContainer}>
           <Text style={styles.sectionTitle}>{selectedService?.company || 'Car Rental Details'}</Text>
           <View style={styles.serviceDetails}>
-            <Text style={styles.serviceText}>Car Model: {selectedService?.carModel || 'Unknown'}</Text>
-            <Text style={styles.serviceText}>Pickup Date: {selectedService?.pickupDate || 'N/A'}</Text>
-            <Text style={styles.serviceText}>Return Date: {selectedService?.returnDate || 'N/A'}</Text>
-            <Text style={styles.serviceText}>Price: {selectedService?.price}</Text>
+            <Text style={styles.serviceText}>Car Model: {selectedService?.vehicleName || 'Unknown'}</Text>
+            <Text style={styles.serviceText}>Location: {selectedService?.location || 'N/A'}</Text>
+            <Text style={styles.serviceText}>Price: {selectedService?.price || 'N/A'}</Text>
+            <Text style={styles.serviceText}>Supplier: {selectedService?.supplier}</Text>
           </View>
         </View>
       );
@@ -51,9 +51,9 @@ const PaymentScreen = ({ navigation, route }) => {
         <View style={styles.serviceDetailsContainer}>
           <Text style={styles.sectionTitle}>{selectedService?.name || 'Restaurant Details'}</Text>
           <View style={styles.serviceDetails}>
-            <Text style={styles.serviceText}>Location: {selectedService?.location || 'Unknown'}</Text>
+            <Text style={styles.serviceText}>Location: {selectedService?.name || 'Unknown'}</Text>
             <Text style={styles.serviceText}>Reservation Date: {selectedService?.date || 'N/A'}</Text>
-            <Text style={styles.serviceText}>Price: {selectedService?.price}</Text>
+            <Text style={styles.serviceText}>Type: {selectedService?.type}</Text>
           </View>
         </View>
       );
