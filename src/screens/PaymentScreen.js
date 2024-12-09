@@ -15,7 +15,7 @@ const PaymentScreen = ({ navigation, route }) => {
           <Text style={styles.sectionTitle}>{selectedService?.airline || 'Flight Details'}</Text>
           <View style={styles.serviceDetails}>
             <Text style={styles.serviceText}>Route: {selectedService?.origin} ➝ {selectedService?.destination}</Text>
-            <Text style={styles.serviceText}>Date: {selectedService?.date}</Text>
+            <Text style={styles.serviceText}>Duration: {selectedService?.duration}</Text>
             <Text style={styles.serviceText}>Time: {selectedService?.time}</Text>
             <Text style={styles.serviceText}>Price: {selectedService?.price}</Text>
           </View>

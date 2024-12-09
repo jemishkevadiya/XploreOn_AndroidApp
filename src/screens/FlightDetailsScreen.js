@@ -94,10 +94,26 @@ const FlightDetailsScreen = ({ navigation, route }) => {
                 const departureTime = leg?.departureTime || 'N/A';
                 const arrivalTime = leg?.arrivalTime || 'N/A';
                 const duration = convertDuration(leg?.totalTime || 0);
-                const price = `${flight.priceBreakdown?.total?.currencyCode} ${flight.priceBreakdown?.total?.units}`;
+                const price = `${flight.priceBreakdown?.total?.currencyCode} $${flight.priceBreakdown?.total?.units}`;
 
                 return (
-                  <View style={styles.card} key={index}>
+                  <TouchableOpacity
+                    key={index}
+                    style={styles.card}
+                    onPress={() =>
+                      navigation.navigate('PaymentScreen', {
+                        selectedService: {
+                          airline: airlineName,
+                          origin: departureCity,
+                          destination: arrivalCity,
+                          duration: duration,
+                          time: departureTime,
+                          price: price,
+                        },
+                        serviceType: 'flight',
+                      })
+                    }
+                  >
                     <View style={styles.cardHeader}>
                       {airlineLogo ? (
                         <Image source={{ uri: airlineLogo }} style={styles.airlineLogo} />
@@ -123,7 +139,7 @@ const FlightDetailsScreen = ({ navigation, route }) => {
                         <Text style={styles.priceText}>Price: {price}</Text>
                       </View>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 );
               })}
             </View>
@@ -238,7 +254,7 @@ const styles = StyleSheet.create({
     marginLeft: 25
   },
   priceText: {
-    fontSize: 17,
+    fontSize: 15,
     marginLeft: 220,
     fontWeight: 'bold',
     color: '#ff6f00',
