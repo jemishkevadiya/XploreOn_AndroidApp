@@ -38,12 +38,16 @@ const FlightDetailsScreen = ({ navigation, route }) => {
   const departureCityName = firstFlight?.segments?.[0]?.departureAirport?.cityName || 'Unknown';
   const destinationCityName = firstFlight?.segments?.[0]?.arrivalAirport?.cityName || 'Unknown';
 
-  const convertDuration = (totalMinutes) => {
-    const hours = Math.floor(totalMinutes / 60);
-    const minutes = totalMinutes % 60;
-    return `${hours}h ${minutes}m`;
+  const convertDuration = (totalSeconds) => {
+    if (!totalSeconds || totalSeconds < 0) {
+      return '0.00h'; // Handle invalid or missing data
+    }
+    
+    const totalHours = (totalSeconds / 3600).toFixed(2); // Convert minutes to hours and round to 2 decimal places
+    return `${totalHours}h`;
+    
   };
-
+  
   return (
     <ImageBackground
       source={require('../../assets/flight-bg.jpg')}
@@ -217,7 +221,7 @@ const styles = StyleSheet.create({
   },
   priceText: {
     fontSize: 17,
-    marginLeft: 230,
+    marginLeft: 220,
     fontWeight: 'bold',
     color: '#ff6f00',
   },
