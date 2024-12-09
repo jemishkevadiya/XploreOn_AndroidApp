@@ -1,82 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Footer from '../components/Footer';
 
 const BookingHistoryScreen = ({ navigation }) => {
-  const bookingHistory = [
-    {
-      id: '1',
-      type: 'Flight',
-      details: 'NYC to SFO with Fly Emirates',
-      date: '24 Nov, 2024',
-      price: '$540',
-    },
-    {
-      id: '2',
-      type: 'Hotel',
-      details: 'Stay at Grand Hotel, San Francisco',
-      date: '20 Nov, 2024',
-      price: '$1200',
-    },
-    {
-      id: '3',
-      type: 'Car Rental',
-      details: 'Toyota Camry from Hertz',
-      date: '18 Nov, 2024',
-      price: '$250',
-    },
-    {
-      id: '4',
-      type: 'Restaurant',
-      details: 'Dinner at Le Bernardin',
-      date: '15 Nov, 2024',
-      price: '$300',
-    },
-    {
-      id: '5',
-      type: 'Flight',
-      details: 'NYC to LAX with Delta Airlines',
-      date: '12 Nov, 2024',
-      price: '$450',
-    },
-    {
-      id: '6',
-      type: 'Hotel',
-      details: 'Stay at The Ritz, Los Angeles',
-      date: '10 Nov, 2024',
-      price: '$1500',
-    },
-  ];
+  const [bookingHistory, setBookingHistory] = useState([]);
+
+  useEffect(() => {
+    const loadBookingHistory = async () => {
+      try {
+        const history = await AsyncStorage.getItem('bookingHistory');
+        if (history) {
+          setBookingHistory(JSON.parse(history));
+        }
+      } catch (error) {
+        console.error('Error loading booking history:', error);
+      }
+    };
+
+    loadBookingHistory();
+  }, []);
 
   return (
     <LinearGradient colors={['#333333', '#fad0c4']} style={styles.gradientBackground}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Back Button */}
         <View style={styles.backArrow}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Ionicons name="arrow-back" size={30} color="#fff" />
           </TouchableOpacity>
         </View>
 
-        {/* Header */}
         <Text style={styles.headerText}>Booking History</Text>
 
-        {/* Booking History Cards */}
-        {bookingHistory.map((booking) => (
-          <View key={booking.id} style={styles.bookingCard}>
-            <View style={styles.cardHeader}>
-              <Text style={styles.cardTitle}>{booking.type} Booking</Text>
-              <Text style={styles.cardDate}>{booking.date}</Text>
+        {bookingHistory.length > 0 ? (
+          bookingHistory.map((booking, index) => (
+            <View key={index} style={styles.bookingCard}>
+              <View style={styles.cardHeader}>
+                <Text style={styles.cardTitle}>{booking.name} Booking</Text>
+                       
+              </View>
+              <Text style={styles.cardDetails}>{booking.location}</Text>
+              <Text style={styles.cardPrice}>Price: ${booking.price}</Text>
+              <Text style={styles.cardDate}>checkin: {booking.checkin}</Text>
+              <Text style={styles.cardDate}>Checkout: {booking.checkout}</Text>  
             </View>
-            <Text style={styles.cardDetails}>{booking.details}</Text>
-            <Text style={styles.cardPrice}>Price: {booking.price}</Text>
-          </View>
-        ))}
+          ))
+        ) : (
+          <Text style={styles.noBookingsText}>No booking history available</Text>
+        )}
       </ScrollView>
 
-      {/* Footer */}
       <Footer navigation={navigation} />
     </LinearGradient>
   );
@@ -134,5 +109,4 @@ const styles = StyleSheet.create({
     color: '#ff6f00',
   },
 });
-
 export default BookingHistoryScreen;

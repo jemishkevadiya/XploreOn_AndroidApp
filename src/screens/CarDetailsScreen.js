@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     paddingTop: 30,
   },
   backArrow: {
-    marginTop: 20,
+    marginTop: 70,
     marginTop: 20,
     marginLeft: 20,
     marginBottom: 20,
@@ -197,5 +197,3 @@ const styles = StyleSheet.create({
 });
 
 export default CarDetailsScreen;
-
-

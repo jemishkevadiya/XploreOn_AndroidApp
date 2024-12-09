@@ -1,101 +1,58 @@
+
 import axios from 'axios';
-import config from './config';
+import config from './config'; 
 
-export const handlePickUpLocationChange = async (pickupLocation) => {
-    try {
-        const response = await axios.get(`https://${config.API_HOST}/api/v1/cars/searchDestination`, {
-            headers: {
-                'X-Rapidapi-Key': config.API_KEY,
-                'X-Rapidapi-Host': config.API_HOST,
-            },
-            params: { query: pickupLocation },
-        });
+// Function to fetch destination code based on location
+export const fetchDestinationCode = async (location) => {
+  try {
+    const response = await axios.get(`https://${config.API_HOST}/api/v1/hotels/searchDestination`, {
+      headers: {
+        'X-Rapidapi-Key': config.API_KEY,
+        'X-Rapidapi-Host': config.API_HOST,
+      },
+      params: {
+        query: location,
+      },
+    });
 
-        console.log('PickUp Location Response:', response.data);
-
-        if (response.data.status && response.data.data.length > 0) {
-            const coordinates = response.data.data[0].coordinates;
-            return {
-                latitude: coordinates.latitude,
-                longitude: coordinates.longitude,
-            };
-        } else {
-            alert(`Location not found for: ${pickupLocation}`);
-            return null;
-        }
-    } catch (error) {
-        console.error('Error fetching PickUp coordinates:', error);
-        alert('Failed to fetch PickUp coordinates. Please try again.');
-        return null;
-    }
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching destination code:', error);
+    throw error;
+  }
 };
 
-export const handleDropOffLocationChange = async (dropOffLocation) => {
-    try {
-        const response = await axios.get(`https://${config.API_HOST}/api/v1/cars/searchDestination`, {
-            headers: {
-                'X-Rapidapi-Key': config.API_KEY,
-                'X-Rapidapi-Host': config.API_HOST,
-            },
-            params: { query: dropOffLocation },
-        });
+// Function to fetch hotel data based on destination code
+export const fetchHotelData = async (destinationCode, checkIn, checkOut, person) => {
+  try {
+    const response = await axios.get(`https://${config.API_HOST}/api/v1/hotels/searchHotels`, {
+      headers: {
+        'X-Rapidapi-Key': config.API_KEY,
+        'X-Rapidapi-Host': config.API_HOST,
+      },
+      params: {
+        dest_id: destinationCode,
+        search_type: 'CITY',
+        arrival_date: checkIn,
+        departure_date: checkOut,
+        adults: person,
+        children_age: '0,17',
+        room_qty: 1,
+        page_number: 1,
+        units: 'metric',
+        temperature_unit: 'c',
+        languagecode: 'en-us',
+        currency_code: 'CAD',
+      },
+    });
 
-        console.log('DropOff Location Response:', response.data);
-
-        if (response.data.status && response.data.data.length > 0) {
-            const coordinates = response.data.data[0].coordinates;
-            return {
-                latitude: coordinates.latitude,
-                longitude: coordinates.longitude,
-            };
-        } else {
-            alert(`Location not found for: ${dropOffLocation}`);
-            return null;
-        }
-    } catch (error) {
-        console.error('Error fetching DropOff coordinates:', error);
-        alert('Failed to fetch DropOff coordinates. Please try again.');
-        return null;
-    }
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching hotel data:', error);
+    throw error;
+  }
 };
 
-export const searchCarRentals = async (pickUpCoordinates, dropOffCoordinates, pickUpDate, dropOffDate, pickUpTime, dropOffTime, currencyCode) => {
-    try {
-        console.log('Request Params:', {
-            pick_up_latitude: pickUpCoordinates.latitude,
-            pick_up_longitude: pickUpCoordinates.longitude,
-            drop_off_latitude: dropOffCoordinates.latitude,
-            drop_off_longitude: dropOffCoordinates.longitude,
-            pick_up_date: pickUpDate,
-            drop_off_date: dropOffDate,
-            pick_up_time: pickUpTime,
-            drop_off_time: dropOffTime,
-            currency_code: currencyCode,
-        });
 
-        const response = await axios.get(`https://${config.API_HOST}/api/v1/cars/searchCarRentals`, {
-            headers: {
-                'X-Rapidapi-Key': config.API_KEY,
-                'X-Rapidapi-Host': config.API_HOST,
-            },
-            params: {
-                pick_up_latitude: pickUpCoordinates.latitude,
-                pick_up_longitude: pickUpCoordinates.longitude,
-                drop_off_latitude: dropOffCoordinates.latitude,
-                drop_off_longitude: dropOffCoordinates.longitude,
-                pick_up_date: pickUpDate,
-                drop_off_date: dropOffDate,
-                pick_up_time: pickUpTime,
-                drop_off_time: dropOffTime,
-                currency_code: currencyCode,
-            },
-        });
 
-        console.log('Car Rentals API Response:', response.data);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching car rentals:', error);
-        alert('Failed to fetch car rentals. Please try again.');
-        throw new Error('Failed to fetch car rentals.');
-    }
-};
+
