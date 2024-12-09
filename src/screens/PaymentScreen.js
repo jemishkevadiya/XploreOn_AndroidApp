@@ -5,9 +5,9 @@ import { Ionicons } from '@expo/vector-icons';
 import Footer from '../components/Footer';
 
 const PaymentScreen = ({ navigation, route }) => {
-  const { selectedService, serviceType } = route.params; // Expecting serviceType to distinguish the service
+  const { selectedService, serviceType } = route.params;
 
-  // Determine the service details based on the type
+ 
   const renderServiceDetails = () => {
     if (serviceType === 'flight') {
       return (
@@ -24,14 +24,15 @@ const PaymentScreen = ({ navigation, route }) => {
     } else if (serviceType === 'hotel') {
       return (
         <View style={styles.serviceDetailsContainer}>
-          <Text style={styles.sectionTitle}>{selectedService?.name || 'Hotel Details'}</Text>
-          <View style={styles.serviceDetails}>
-            <Text style={styles.serviceText}>Location: {selectedService?.location || 'Unknown'}</Text>
-            <Text style={styles.serviceText}>Check-In: {selectedService?.checkInDate || 'N/A'}</Text>
-            <Text style={styles.serviceText}>Check-Out: {selectedService?.checkOutDate || 'N/A'}</Text>
-            <Text style={styles.serviceText}>Price: {selectedService?.price}</Text>
-          </View>
+        <Text style={styles.sectionTitle}>{selectedService?.name || 'Hotel Details'}</Text>
+        <View style={styles.serviceDetails}>
+          <Text style={styles.serviceText}>Location: {selectedService?.location || 'Unknown'}</Text>
+          <Text style={styles.serviceText}>Check-In: {selectedService?.checkin || 'N/A'}</Text>
+          <Text style={styles.serviceText}>Check-Out: {selectedService?.checkout || 'N/A'}</Text>
+          <Text style={styles.serviceText}>Price: {selectedService?.price || 'N/A'}</Text>
+          <Text style={styles.serviceText}>Rating: {selectedService?.rating || 'N/A'} ⭐</Text>
         </View>
+      </View>
       );
     } else if (serviceType === 'car') {
       return (

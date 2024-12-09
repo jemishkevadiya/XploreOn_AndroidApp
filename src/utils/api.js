@@ -1,21 +1,58 @@
+
 import axios from 'axios';
-import config from './config';
+import config from './config'; 
 
-export const fetchFlightSearchResults = async (params) => {
+// Function to fetch destination code based on location
+export const fetchDestinationCode = async (location) => {
   try {
-    const response = await axios.get(
-      `https://${config.API_HOST}/api/v1/flights/searchFlights?fromId=${params.fromId}&toId=${params.toId}&departDate=${params.departureDate}&adults=${params.adults}&cabinClass=${params.cabinClass}&currency_code=CAD`
-      , {
+    const response = await axios.get(`https://${config.API_HOST}/api/v1/hotels/searchDestination`, {
       headers: {
-        'x-rapidapi-key': config.API_KEY,
-        'x-rapidapi-host': config.API_HOST,
-      }});
+        'X-Rapidapi-Key': config.API_KEY,
+        'X-Rapidapi-Host': config.API_HOST,
+      },
+      params: {
+        query: location,
+      },
+    });
 
-    console.log('Search Results:', response.data);
     return response.data;
   } catch (error) {
-    console.error('Error in SearchFlight API:', error);
+    console.error('Error fetching destination code:', error);
     throw error;
   }
 };
+
+// Function to fetch hotel data based on destination code
+export const fetchHotelData = async (destinationCode, checkIn, checkOut, person) => {
+  try {
+    const response = await axios.get(`https://${config.API_HOST}/api/v1/hotels/searchHotels`, {
+      headers: {
+        'X-Rapidapi-Key': config.API_KEY,
+        'X-Rapidapi-Host': config.API_HOST,
+      },
+      params: {
+        dest_id: destinationCode,
+        search_type: 'CITY',
+        arrival_date: checkIn,
+        departure_date: checkOut,
+        adults: person,
+        children_age: '0,17',
+        room_qty: 1,
+        page_number: 1,
+        units: 'metric',
+        temperature_unit: 'c',
+        languagecode: 'en-us',
+        currency_code: 'CAD',
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching hotel data:', error);
+    throw error;
+  }
+};
+
+
+
 
