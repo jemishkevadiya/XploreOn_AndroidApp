@@ -1,87 +1,53 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import Footer from '../components/Footer';
+import Footer from '../components/Footer'; 
 
-const CarDetailsScreen = ({ navigation }) => {
-  const carData = [
-    {
-      id: '1',
-      name: 'Tesla Model S',
-      location: 'Los Angeles, USA',
-      rating: '4.9',
-      price: '$200/day',
-      availability: 'Available',
-      image: require('../../assets/tesla.jpg'),
-    },
-    {
-      id: '2',
-      name: 'Ford Mustang',
-      location: 'Miami, USA',
-      rating: '4.7',
-      price: '$150/day',
-      availability: 'Limited',
-      image: require('../../assets/ford-mustang.jpg'),
-    },
-    {
-      id: '3',
-      name: 'BMW X7',
-      location: 'New York, USA',
-      rating: '4.8',
-      price: '$180/day',
-      availability: 'Available',
-      image: require('../../assets/bmw-x7.jpg'),
-    },
-    {
-      id: '4',
-      name: 'Chevrolet Camaro',
-      location: 'San Francisco, USA',
-      rating: '4.6',
-      price: '$170/day',
-      availability: 'Limited',
-      image: require('../../assets/chevrolet-camaro.jpg'),
-    },
-    {
-      id: '5',
-      name: 'Audi Q8',
-      location: 'Seattle, USA',
-      rating: '4.8',
-      price: '$190/day',
-      availability: 'Available',
-      image: require('../../assets/audi-q8.jpg'),
-    },
-    {
-      id: '6',
-      name: 'Range Rover Evoque',
-      location: 'Las Vegas, USA',
-      rating: '4.9',
-      price: '$220/day',
-      availability: 'Available',
-      image: require('../../assets/rangerover-evoque.jpg'),
-    },
-  ];
+const CarDetailsScreen = ({ route, navigation }) => {
 
-  const renderCarCard = (item) => (
-    <TouchableOpacity style={styles.card} key={item.id} onPress={() => navigation.navigate('PaymentScreen', 
-      { selectedHotel: item, serviceType: 'car'})}>
-      <Image source={item.image} style={styles.carImage} />
-      <View style={styles.cardContent}>
-        <Text style={styles.carName}>{item.name}</Text>
-        <Text style={styles.locationText}>Location: {item.location}</Text>
-        <Text style={styles.ratingText}>Rating: {item.rating} ⭐</Text>
-        <Text style={styles.availabilityText}>Availability: {item.availability}</Text>
-        <Text style={styles.priceText}>Price: {item.price}</Text>
+  const { carData } = route.params; 
+
+
+  if (!carData || carData.length === 0) {
+    return (
+      <View style={styles.centered}>
+        <Text style={styles.errorMessage}>No car data available</Text>
       </View>
-    </TouchableOpacity>
-  );
+    );
+  }
+
+  
+  const renderCarCard = ({ item }) => {
+  
+    
+    return (
+      <TouchableOpacity 
+        style={styles.card} 
+        onPress={() => navigation.navigate('PaymentScreen', { selectedCar: item, serviceType: 'car' })}
+      >
+        <Image source={{ uri: item.image_url }} style={styles.carImage} />
+        <View style={styles.cardContent}>
+          <Text style={styles.carName}>{item.vehicle_name}</Text>
+          <Text style={styles.locationText}>Location: {item.location}</Text>
+          <Text style={styles.doorText}>Doors: {item.doors}</Text>
+          <Text style={styles.transmissionText}>transmission: {item.transmission}</Text>
+          <Text style={styles.priceText}>Price: {item.price}</Text>
+          <Text style={styles.supplierText}>supplier: {item.supplier} </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   return (
-    <ImageBackground source={require('../../assets/CarRental.jpg')} style={styles.background}
-    imageStyle={styles.backgroundImage}>
+    <ImageBackground 
+      source={require('../../assets/CarRental.jpg')} 
+      style={styles.background}
+      imageStyle={styles.backgroundImage}
+    >
       <LinearGradient colors={['rgba(0,0,0,0.98)', 'transparent']} style={styles.gradientOverlay} />
 
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+      <View style={styles.scrollContent}>
         {/* Header */}
         <View style={styles.backArrow}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -95,12 +61,14 @@ const CarDetailsScreen = ({ navigation }) => {
         </View>
 
         {/* Car Cards */}
-        {carData.map(renderCarCard)}
+        <FlatList
+          data={carData}  
+          renderItem={renderCarCard}
+        />
+      </View>
 
-
-      </ScrollView>
-       {/* Footer */}
-       <Footer navigation={navigation} />
+      {/* Footer */}
+      <Footer navigation={navigation} />
     </ImageBackground>
   );
 };
@@ -117,11 +85,12 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   scrollContent: {
-    flexGrow: 1,
+    flex: 1,
     paddingBottom: 90,
+    paddingTop: 30,
   },
   backArrow: {
-    marginTop: 70,
+    marginTop: 20,
     marginLeft: 20,
     marginBottom: 20,
   },
@@ -162,12 +131,17 @@ const styles = StyleSheet.create({
     color: '#ccc',
     marginBottom: 3,
   },
-  ratingText: {
+  supplierText: {
     fontSize: 14,
     color: '#ccc',
     marginBottom: 3,
   },
-  availabilityText: {
+  doorText: {
+    fontSize: 14,
+    color: '#ccc',
+    marginBottom: 3,
+  },
+  transmissionText: {
     fontSize: 14,
     color: '#ccc',
     marginBottom: 3,
@@ -178,6 +152,16 @@ const styles = StyleSheet.create({
     color: '#ff6f00',
     marginTop: 5,
   },
+  centered: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorMessage: {
+    fontSize: 18,
+    color: '#ff0000',
+  },
 });
 
 export default CarDetailsScreen;
+
