@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import Footer from '../components/Footer';
@@ -83,19 +83,21 @@ const FlightDetailsScreen = ({ navigation, route }) => {
       time: '1:00 PM',
       price: '$500',
     },
+  
   ];
 
   const filteredFlights = flightData.filter((flight) => {
     const isOriginMatch = flight.origin.toLowerCase() === origin.toLowerCase();
     const isDestinationMatch = flight.destination.toLowerCase() === destination.toLowerCase();
     const isDepartureMatch = flight.date === departureDate;
-    const isReturnMatch = returnDate ? flight.returnDate === returnDate : true;
+    const isReturnMatch = returnDate ? flight.returnDate === returnDate : true; 
 
     return isOriginMatch && isDestinationMatch && isDepartureMatch && isReturnMatch;
   });
 
   const renderFlightCard = (item) => (
-    <View style={styles.card} key={item.id}>
+    <TouchableOpacity style={styles.card} key={item.id} onPress={() => navigation.navigate('PaymentScreen', 
+        { selectedFlight: item, serviceType: 'flight'})}>
       <View style={styles.cardHeader}>
         <Text style={styles.airlineName}>{item.airline}</Text>
       </View>
@@ -114,55 +116,39 @@ const FlightDetailsScreen = ({ navigation, route }) => {
       <View style={styles.cardFooter}>
         <Text style={styles.priceText}>Price: {item.price}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
-    <ImageBackground
-      source={require('../../assets/flight-bg.jpg')} 
-      style={styles.background}
-    >
-      <LinearGradient
-        colors={['rgba(0,0,0,0.7)', 'transparent']} 
-        style={styles.gradientOverlay}
-      />
-      <View style={styles.container}>
+    <ImageBackground source={require('../../assets/flight-bg.jpg')} style={styles.background}>
+      <LinearGradient colors={['rgba(0,0,0,0.7)', 'transparent']} style={styles.gradientOverlay} />
+
+      <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Header */}
         <View style={styles.backArrow}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Ionicons name="arrow-back" size={30} color="#fff" />
           </TouchableOpacity>
         </View>
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-          <View style={styles.topSpace} />
-          <View style={styles.routeContainer}>
-            {/* Route Info */}
-            <View style={styles.routeInfo}>
-              <View style={styles.routeDetails}>
-                <Text style={styles.routeCode}>{origin.toUpperCase()}</Text>
-                <Text style={styles.cityText}>Origin</Text>
-              </View>
-              <View style={styles.routeArrow}>
-                <Ionicons name="airplane" size={24} color="#ff6f00" />
-              </View>
-              <View style={styles.routeDetails}>
-                <Text style={styles.routeCode}>{destination.toUpperCase()}</Text>
-                <Text style={styles.cityText}>Destination</Text>
-              </View>
-            </View>
+        <View style={styles.routeContainer}>
+          <Text style={styles.routeText}>
+            Flights from <Text style={styles.highlight}>{origin}</Text> to{' '}
+            <Text style={styles.highlight}>{destination}</Text>
+          </Text>
+        </View>
+
+       
+        {filteredFlights.length > 0 ? (
+          filteredFlights.map(renderFlightCard)
+        ) : (
+          <View style={styles.noResults}>
+            <Text style={styles.noResultsText}>No flights found for the selected criteria.</Text>
           </View>
-          <View style={styles.cardList}>
-            {filteredFlights.length > 0 ? (
-              filteredFlights.map(renderFlightCard) 
-            ) : (
-              <View style={styles.noResults}>
-                <Text style={styles.noResultsText}>No flights found for the selected criteria.</Text>
-              </View>
-            )}
-          </View>
-        </ScrollView>
-        <Footer navigation={navigation} />
-      </View>
+        )}
+      </ScrollView>
+
+    
+      <Footer navigation={navigation} />
     </ImageBackground>
   );
 };
@@ -172,62 +158,36 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
   },
-  container: {
-    flex: 1,
+  gradientOverlay: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 90,
   },
   backArrow: {
     marginTop: 70,
     marginLeft: 20,
-  },
-  scrollContainer: {
-    flexGrow: 1,
-    paddingBottom: 100,
-  },
-  topSpace: {
-    height: 50,
-  },
-  gradientOverlay: {
-    ...StyleSheet.absoluteFillObject,
+    marginBottom: 20,
   },
   routeContainer: {
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-  },
-  routeInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 10,
-    borderRadius: 10,
     marginBottom: 20,
-    paddingHorizontal: 18,
+    paddingHorizontal: 20,
   },
-  routeDetails: {
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  routeCode: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  routeText: {
+    fontSize: 18,
     color: '#fff',
   },
-  cityText: {
-    fontSize: 14,
-    color: '#ccc',
-  },
-  routeArrow: {
-    alignItems: 'center',
-  },
-  cardList: {
-    paddingBottom: 90,
-    paddingHorizontal: 18,
+  highlight: {
+    fontWeight: 'bold',
+    color: '#ff6f00',
   },
   card: {
     backgroundColor: 'rgba(44, 44, 44, 0.98)',
     borderRadius: 10,
     padding: 15,
-    marginBottom: 15,
-    paddingHorizontal: 18,
+    marginBottom: 20,
+    marginHorizontal: 18,
   },
   cardHeader: {
     flexDirection: 'row',
@@ -238,6 +198,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#fff',
+  },
+  cardBody: {
+    marginBottom: 10,
   },
   flightInfo: {
     flexDirection: 'row',
