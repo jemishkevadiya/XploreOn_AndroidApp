@@ -1,84 +1,61 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground, ScrollView, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import Footer from '../components/Footer';
+import { searchRestaurants } from '../utils/api';
 
-const RestaurantDetailsScreen = ({ navigation }) => {
-  const restaurantData = [
-    {
-      id: '1',
-      name: 'The Gourmet Bistro',
-      location: 'New York, USA',
-      rating: '4.7',
-      priceRange: '$50-$80',
-      specialty: 'French Cuisine',
-      image: require('../../assets/TheGourmetBistro.jpg'),
-    },
-    {
-      id: '2',
-      name: 'Ocean Breeze Diner',
-      location: 'Miami, USA',
-      rating: '4.5',
-      priceRange: '$70-$80',
-      specialty: 'Seafood',
-      image: require('../../assets/OceanBreezeDiner.jpg'),
-    },
-    {
-      id: '3',
-      name: 'Mountain View Grill',
-      location: 'Denver, USA',
-      rating: '4.6',
-      priceRange: '$60-$100',
-      specialty: 'Steakhouse',
-      image: require('../../assets/MountainViewGrill.jpg'),
-    },
-    {
-      id: '4',
-      name: 'Urban Vegan Cafe',
-      location: 'San Francisco, USA',
-      rating: '4.8',
-      priceRange: '$70-$90',
-      specialty: 'Vegan & Organic',
-      image: require('../../assets/UrbanVeganCafe.jpg'),
-    },
-    {
-      id: '5',
-      name: 'Sushi Paradise',
-      location: 'Seattle, USA',
-      rating: '4.9',
-      priceRange: '$40-$70',
-      specialty: 'Japanese Sushi',
-      image: require('../../assets/SushiParadise.jpg'),
-    },
-    {
-      id: '6',
-      name: 'La Bella Italia',
-      location: 'Las Vegas, USA',
-      rating: '4.8',
-      priceRange: '$65-$75',
-      specialty: 'Italian Cuisine',
-      image: require('../../assets/LaBellaItalia.jpg'),
-    },
-  ];
+const RestaurantDetailsScreen = ({ route, navigation }) => {
+  const { locationId, reservationDate, person } = route.params; 
+  const [restaurants, setRestaurants] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      try {
+        const data = await searchRestaurants(locationId);
+        setRestaurants(data); 
+      } catch (err) {
+        setError('Failed to fetch restaurants. Please try again.');
+        console.error(err);
+      } finally {
+        setLoading(false); 
+      }
+    };
+
+    fetchRestaurants();
+  }, [locationId]);
 
   const renderRestaurantCard = (item) => (
-    <TouchableOpacity style={styles.card} key={item.id} onPress={() => navigation.navigate('PaymentScreen', 
-        { selectedHotel: item, serviceType: 'restaurant'})}>
-      <Image source={item.image} style={styles.restaurantImage} />
+    <TouchableOpacity
+      style={styles.card}
+      key={item.name} 
+      onPress={() =>
+        navigation.navigate('PaymentScreen', {
+          selectedHotel: item,
+          serviceType: 'restaurant',
+        })
+      }
+    >
+      <Image source={{ uri: item.thumbnail }} style={styles.restaurantImage} />
       <View style={styles.cardContent}>
         <Text style={styles.restaurantName}>{item.name}</Text>
-        <Text style={styles.locationText}>Location: {item.location}</Text>
-        <Text style={styles.ratingText}>Rating: {item.rating} ⭐</Text>
-        <Text style={styles.specialtyText}>Specialty: {item.specialty}</Text>
-        <Text style={styles.priceRangeText}>Price Range: {item.priceRange}</Text>
+        <Text style={styles.locationText}>Location: {item.parentGeoName}</Text>
+        <Text style={styles.ratingText}>Rating: {item.averageRating} ⭐</Text>
+        <Text style={styles.specialtyText}>
+          Tags: {item.tags ? item.tags.join(', ') : 'No tags available'}
+        </Text>
       </View>
     </TouchableOpacity>
   );
 
   return (
-    <ImageBackground source={require('../../assets/restaurant-BG.jpg')} style={styles.background}
-     imageStyle={styles.backgroundImage}>
+    <ImageBackground
+      source={require('../../assets/restaurant-BG.jpg')}
+      style={styles.background}
+      imageStyle={styles.backgroundImage}
+    >
       <LinearGradient colors={['rgba(0,0,0,0.98)', 'transparent']} style={styles.gradientOverlay} />
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -94,13 +71,20 @@ const RestaurantDetailsScreen = ({ navigation }) => {
           <Text style={styles.titleText}>Restaurant Details</Text>
         </View>
 
-        {/* Restaurant Cards */}
-        {restaurantData.map(renderRestaurantCard)}
-
-       
+        {/* Loading or Error Message */}
+        {loading ? (
+          <ActivityIndicator size="large" color="#ff6f00" />
+        ) : error ? (
+          <Text style={styles.errorText}>{error}</Text>
+        ) : restaurants.length === 0 ? (
+          <Text style={styles.noDataText}>No restaurants found for this location.</Text>
+        ) : (
+          restaurants.map(renderRestaurantCard)
+        )}
       </ScrollView>
-       {/* Footer */}
-       <Footer navigation={navigation} />
+
+      {/* Footer */}
+      <Footer navigation={navigation} />
     </ImageBackground>
   );
 };
