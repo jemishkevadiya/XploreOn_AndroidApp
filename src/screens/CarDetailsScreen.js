@@ -32,7 +32,7 @@ const CarDetailsScreen = ({ route, navigation }) => {
           <Text style={styles.locationText}>Location: {item.location}</Text>
           <Text style={styles.doorText}>Doors: {item.doors}</Text>
           <Text style={styles.transmissionText}>transmission: {item.transmission}</Text>
-          <Text style={styles.priceText}>Price: {item.price}</Text>
+          <Text style={styles.priceText}>Price: CAD ${item.price}</Text>
           <Text style={styles.supplierText}>supplier: {item.supplier} </Text>
         </View>
       </TouchableOpacity>
