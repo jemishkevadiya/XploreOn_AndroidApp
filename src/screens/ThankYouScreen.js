@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const ThankYouPage = ({ navigation }) => {
+const ThankYouScreen = ({ navigation }) => {
   return (
     <ImageBackground
       source={require('../../assets/thankyou-BG.jpg')} 
@@ -71,4 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ThankYouPage;
+export default ThankYouScreen;
