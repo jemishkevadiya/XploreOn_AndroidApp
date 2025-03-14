@@ -40,10 +40,10 @@ const FlightDetailsScreen = ({ navigation, route }) => {
 
   const convertDuration = (totalSeconds) => {
     if (!totalSeconds || totalSeconds < 0) {
-      return '0.00h'; // Handle invalid or missing data
+      return '0.00h'; 
     }
     
-    const totalHours = (totalSeconds / 3600).toFixed(2); // Convert minutes to hours and round to 2 decimal places
+    const totalHours = (totalSeconds / 3600).toFixed(2); 
     return `${totalHours}h`;
     
   };

@@ -44,7 +44,7 @@ const FlightScreen = ({ navigation }) => {
   
     if (tripType === 'Round Trip') {
       if (!isFutureDate(returnDate)) {
-        Alert.alert('Error', 'Return date must be today or in the future.');
+        Alert.alert('Error', 'Return date must be today or in the future.');t 
         return;
       }
   

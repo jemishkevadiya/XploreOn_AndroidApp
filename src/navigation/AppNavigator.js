@@ -14,8 +14,6 @@ import CarRentalsScreen from '../screens/CarRentalsScreen.js';
 import CarDetailsScreen from '../screens/CarDetailsScreen.js';
 import RestaurantScreen from '../screens/RestaurantScreen.js';
 import RestaurantDetailsScreen from '../screens/RestaurantDetailsScreen.js';
-import ItineraryScreen from '../screens/ItineraryScreen.js';
-import ItineraryDetailsScreen from '../screens/ItineraryDetailsScreen.js';
 import PaymentScreen from '../screens/PaymentScreen.js';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
@@ -41,8 +39,6 @@ const AppNavigator = () => {
         <Stack.Screen name="CarDetailsScreen" component={CarDetailsScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="RestaurantDetailsScreen" component={RestaurantDetailsScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="ItineraryScreen" component={ItineraryScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="ItineraryDetailsScreen" component={ItineraryDetailsScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="PaymentScreen" component={PaymentScreen} options={{ headerShown: false }}/>  
         <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} options={{ headerShown: false }}/> 
         <Stack.Screen name="NotificationsScreen" component={NotificationsScreen} options={{ headerShown: false }}/> 
